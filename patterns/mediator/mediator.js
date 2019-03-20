@@ -9,9 +9,9 @@ class BaseMediator {
 	}
 }
 
-class BaseCollegue {
+class BaseColleague {
 	constructor(baseMediator){
-		if(new.target === BaseCollegue)
+		if(new.target === BaseColleague)
 			throw new Error("Can't instantiate abstract type.");
 
 		if(!(baseMediator instanceof BaseMediator))
@@ -25,9 +25,9 @@ class HelloMediator extends BaseMediator {
 	constructor(){
 		super();
 
-		this.helloButton = new HelloButtonCollegue(this);
-		this.saveButton = new SaveButtonCollegue(this);
-		this.textField = new TextFieldCollegue(this);
+		this.helloButton = new HelloButtonColleague(this);
+		this.saveButton = new SaveButtonColleague(this);
+		this.textField = new TextFieldColleague(this);
 	}
 
 	notify(event, target){
@@ -50,24 +50,24 @@ class HelloMediator extends BaseMediator {
 	}
 }
 
-class ButtonCollegue extends BaseCollegue {
+class ButtonColleague extends BaseColleague {
 	constructor(baseMediator){
 		super(baseMediator);
 		this.enabled = true;
 	}
 }
 
-class HelloButtonCollegue extends ButtonCollegue {
+class HelloButtonColleague extends ButtonColleague {
 	clickHandler(){
 		this.mediator.notify("helloButtonClicked", this);
 	}
 }
 
-class SaveButtonCollegue extends ButtonCollegue {
+class SaveButtonColleague extends ButtonColleague {
 	
 }
 
-class TextFieldCollegue extends BaseCollegue {
+class TextFieldColleague extends BaseColleague {
 	constructor(baseMediator){
 		super(baseMediator);
 		this.text = "";
@@ -85,10 +85,10 @@ class TextFieldCollegue extends BaseCollegue {
 
 module.exports = {
 	BaseMediator,
-	BaseCollegue,
+	BaseColleague,
 	HelloMediator,
-	ButtonCollegue,
-	HelloButtonCollegue,
-	SaveButtonCollegue,
-	TextFieldCollegue
+	ButtonColleague,
+	HelloButtonColleague,
+	SaveButtonColleague,
+	TextFieldColleague
 };

@@ -1,11 +1,11 @@
-const { HelloMediator, ButtonCollegue, HelloButtonCollegue, SaveButtonCollegue, TextFieldCollegue } = require('../patterns/mediator/mediator');
+const { HelloMediator, ButtonColleague, HelloButtonColleague, SaveButtonColleague, TextFieldColleague } = require('../patterns/mediator/mediator');
 
 QUnit.test("HelloMediator()", function (assert) {
 	const result = new HelloMediator();
 	
-	assert.ok(result.helloButton instanceof HelloButtonCollegue);
-	assert.ok(result.saveButton instanceof SaveButtonCollegue);
-	assert.ok(result.textField instanceof TextFieldCollegue);
+	assert.ok(result.helloButton instanceof HelloButtonColleague);
+	assert.ok(result.saveButton instanceof SaveButtonColleague);
+	assert.ok(result.textField instanceof TextFieldColleague);
 });
 
 QUnit.test("HelloMediator.prototype.setText(text)", function (assert) {
@@ -44,55 +44,55 @@ QUnit.test("HelloMediator.prototype.notify(event, target)", function (assert) {
 	assert.strictEqual(helloMediator.saveButton.enabled, false);
 });
 
-QUnit.test("ButtonCollegue(baseMediator)", function (assert) {
+QUnit.test("ButtonColleague(baseMediator)", function (assert) {
 	const helloMediator = new HelloMediator();
 
-	const result = new ButtonCollegue(helloMediator);
+	const result = new ButtonColleague(helloMediator);
 
 	assert.strictEqual(result.mediator, helloMediator);
 	assert.strictEqual(result.enabled, true);
 });
 
-QUnit.test("HelloButtonCollegue.prototype.clickHandler()", function (assert) {
+QUnit.test("HelloButtonColleague.prototype.clickHandler()", function (assert) {
 	const helloMediator = new HelloMediator();
-	const collegue = new HelloButtonCollegue(helloMediator);
+	const colleague = new HelloButtonColleague(helloMediator);
 
-	collegue.clickHandler();
+	colleague.clickHandler();
 
 	assert.strictEqual(helloMediator.textField.text, "Hello!");
 	assert.strictEqual(helloMediator.saveButton.enabled, true);
 });
 
-QUnit.test("TextFieldCollegue()", function (assert) {
+QUnit.test("TextFieldColleague()", function (assert) {
 	const helloMediator = new HelloMediator();
-	const collegue = new TextFieldCollegue(helloMediator);
-	helloMediator.textField = collegue;
+	const colleague = new TextFieldColleague(helloMediator);
+	helloMediator.textField = colleague;
 
-	assert.strictEqual(collegue.text, "");
-	assert.strictEqual(collegue.mediator, helloMediator);
+	assert.strictEqual(colleague.text, "");
+	assert.strictEqual(colleague.mediator, helloMediator);
 });
 
-QUnit.test("TextFieldCollegue.prototype.changedHandler()", function (assert) {
+QUnit.test("TextFieldColleague.prototype.changedHandler()", function (assert) {
 	const helloMediator = new HelloMediator();
-	const collegue = new TextFieldCollegue(helloMediator);
-	helloMediator.textField = collegue;
+	const colleague = new TextFieldColleague(helloMediator);
+	helloMediator.textField = colleague;
 
-	collegue.text = "";
-	collegue.changedHandler();
+	colleague.text = "";
+	colleague.changedHandler();
 	assert.strictEqual(helloMediator.saveButton.enabled, false);
 
-	collegue.text = "test";
-	collegue.changedHandler();
+	colleague.text = "test";
+	colleague.changedHandler();
 	assert.strictEqual(helloMediator.saveButton.enabled, true);
 });
 
-QUnit.test("TextFieldCollegue.prototype.setText(text)", function (assert) {
+QUnit.test("TextFieldColleague.prototype.setText(text)", function (assert) {
 	const helloMediator = new HelloMediator();
-	const collegue = new TextFieldCollegue(helloMediator);
-	helloMediator.textField = collegue;
+	const colleague = new TextFieldColleague(helloMediator);
+	helloMediator.textField = colleague;
 	const actualText = "test";
 
-	collegue.setText(actualText);
+	colleague.setText(actualText);
 	assert.strictEqual(helloMediator.saveButton.enabled, true);
-	assert.strictEqual(collegue.text, actualText);
+	assert.strictEqual(colleague.text, actualText);
 });
