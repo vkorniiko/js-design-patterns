@@ -13,6 +13,9 @@ class BaseAnimalDecorator {
 		if(new.target === BaseAnimalDecorator)
 			throw new Error("Can't instantiate abstract type.");
 
+		if(!(animalComponent instanceof AnimalComponent))
+			throw new Error("Invalid argument 'animalComponent'.");
+
 		this.animalComponent = animalComponent;
 	}
 

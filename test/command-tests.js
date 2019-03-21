@@ -1,13 +1,15 @@
 const { BaseCommand, ReminderCommand, TaskExecutor, CalendarInitiator, SchedulerClient } = require('../patterns/command/command');
 
 QUnit.test("ReminderCommand()", function (assert) {
-	const result = new ReminderCommand();
+	const executor = new TaskExecutor();
+	const result = new ReminderCommand(executor);
 	
 	assert.strictEqual(result.permissionGranted, false);
 });
 
 QUnit.test("ReminderCommand.prototype.checkPermission()", function (assert) {
-	const command = new ReminderCommand();
+	const executor = new TaskExecutor();
+	const command = new ReminderCommand(executor);
 	
 	const result = command.checkPermission();
 

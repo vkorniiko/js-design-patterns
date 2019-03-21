@@ -1,6 +1,6 @@
 class BaseBall {
 	constructor(){
-		if(new.target === BaseBallVisitor)
+		if(new.target === BaseBall)
 			throw new Error("Can't instantiate abstract type.");
 
 		this.height = 0;
@@ -72,6 +72,9 @@ class BaseBallVisitor {
 
 class KickBallVisitor extends BaseBallVisitor {
 	visitFootballBall(baseBall){
+		if(!(baseBall instanceof BaseBall))
+			throw new Error("Invalid argument 'baseBall'.");
+
 		baseBall.movingState = FootballBall.movingStates.kickedOut;
 		baseBall.height = 20;
 		baseBall.distance = 30;
@@ -83,7 +86,10 @@ class KickBallVisitor extends BaseBallVisitor {
 class ThrowBallVisitor extends BaseBallVisitor {
 	visitFootballBall(baseBall){ }
 
-	visitBaseballBall(baseBall){ 
+	visitBaseballBall(baseBall){
+		if(!(baseBall instanceof BaseBall))
+			throw new Error("Invalid argument 'baseBall'.");
+
 		baseBall.movingState = BaseballBall.movingStates.throwed;
 		baseBall.height = 30;
 		baseBall.distance = 40;
@@ -102,11 +108,17 @@ class GetStatisticVisitor extends BaseBallVisitor {
 		this.totalHeight += baseBall.height;
 	}
 
-	visitFootballBall(baseBall){ 
+	visitFootballBall(baseBall){
+		if(!(baseBall instanceof BaseBall))
+			throw new Error("Invalid argument 'baseBall'.");
+
 		this.getStatistics(baseBall);
 	}
 
-	visitBaseballBall(baseBall){ 
+	visitBaseballBall(baseBall){
+		if(!(baseBall instanceof BaseBall))
+			throw new Error("Invalid argument 'baseBall'.");
+
 		this.getStatistics(baseBall);
 	}
 }
@@ -117,12 +129,18 @@ class ReturnBallVisitor extends BaseBallVisitor {
 		baseBall.distance = 0;
 	}
 
-	visitFootballBall(baseBall){ 
+	visitFootballBall(baseBall){
+		if(!(baseBall instanceof BaseBall))
+			throw new Error("Invalid argument 'baseBall'.");
+
 		baseBall.movingState = FootballBall.movingStates.lying;
 		this.returnBall(baseBall);
 	}
 
-	visitBaseballBall(baseBall){ 
+	visitBaseballBall(baseBall){
+		if(!(baseBall instanceof BaseBall))
+			throw new Error("Invalid argument 'baseBall'.");
+
 		baseBall.movingState = BaseballBall.movingStates.lying;
 		this.returnBall(baseBall);
 	}

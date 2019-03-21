@@ -15,16 +15,25 @@ class TreeOriginator {
 
 class TreeMemento {
 	constructor(originator){
+		if(!(originator instanceof TreeOriginator))
+			throw new Error("Invalid argument 'originator'.");
+
 		this.state = {};
 		this.setState(originator);
 	}
 	
 	restoreState(originator){
+		if(!(originator instanceof TreeOriginator))
+			throw new Error("Invalid argument 'originator'.");
+
 		originator.width = this.state.width;
 		originator.height = this.state.height;
 	}
 
 	setState(originator){
+		if(!(originator instanceof TreeOriginator))
+			throw new Error("Invalid argument 'originator'.");
+
 		this.state.width = originator.width;
 		this.state.height = originator.height;
 	}
@@ -36,11 +45,17 @@ class MementoCaretaker {
 	}
 
 	saveMemento(originator){
+		if(!(originator instanceof TreeOriginator))
+			throw new Error("Invalid argument 'originator'.");
+
 		const memento = originator.createMemento();
 		this.history.push(memento);
 	}
 
 	restoreMemento(originator, revision){
+		if(!(originator instanceof TreeOriginator))
+			throw new Error("Invalid argument 'originator'.");
+
 		const memento = this.history[revision];
 		originator.setMemento(memento);
 	}

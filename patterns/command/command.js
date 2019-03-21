@@ -17,6 +17,9 @@ class BaseCommand{
 
 class ReminderCommand extends BaseCommand {
 	constructor(executor){
+		if(!(executor instanceof TaskExecutor))
+			throw new Error("Invalid argument 'executor'.");
+
 		super();
 		this.executor = executor;
 	}
@@ -68,6 +71,12 @@ class SchedulerClient {
 	}
 
 	createReminderCommand(executor, initiator){
+		if(!(executor instanceof TaskExecutor))
+			throw new Error("Invalid argument 'executor'.");
+
+		if(!(initiator instanceof CalendarInitiator))
+			throw new Error("Invalid argument 'initiator'.");
+
 		var reminderCommand = new ReminderCommand(executor);
 		reminderCommand.permissionGranted = true;
 		initiator.command = reminderCommand;
