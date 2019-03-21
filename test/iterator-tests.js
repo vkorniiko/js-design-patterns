@@ -1,4 +1,4 @@
-const { List, ListIterator } = require('../patterns/iterator/iterator');
+const { List, ListIterator, ES6ListIterator } = require('../patterns/iterator/iterator');
 const { ListBuilder, ArrayDirector, ListNode } = require('../patterns/builder/builder');
 
 class IteratorListBuilder extends ListBuilder {
@@ -156,5 +156,22 @@ QUnit.test("ListIterator.prototype.moveNext() iterate", function (assert) {
 		assert.strictEqual(iterator.getCurrent(), array[idx]);
 		idx++;
 		iterator.moveNext();
+	}
+});
+
+QUnit.test("ES6ListIterator for...of", function (assert) {
+	const array = [ 1, 2, 3 ];
+	const listBuilder = new IteratorListBuilder();
+	const arrayDirector = new ArrayDirector(array, listBuilder);
+	arrayDirector.construct();
+	
+	const list = listBuilder.getResult();
+	
+	const iterator = new ES6ListIterator(list);
+	let idx = 0;
+
+	for(let item of iterator){
+		assert.strictEqual(item, array[idx]);
+		idx++;
 	}
 });

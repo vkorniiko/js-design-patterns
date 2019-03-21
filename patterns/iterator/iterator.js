@@ -73,7 +73,20 @@ class ListIterator extends BaseIterator {
 	}
 }
 
+class ES6ListIterator extends ListIterator {
+	[Symbol.iterator](){
+		return { 
+			next: () => {
+				const result = { value: this.getCurrent(), done: this.checkCompletion() };
+				this.moveNext();
+				return result;
+			}
+		};
+	}
+}
+
 module.exports = {
 	List,
-	ListIterator
+	ListIterator,
+	ES6ListIterator
 };
