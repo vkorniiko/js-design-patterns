@@ -1,9 +1,15 @@
-const { List, ListIterator, ES6ListIterator } = require('../patterns/iterator/iterator');
+const { List, ListIterator, ES6List, ES6ListIterator, Client } = require('../patterns/iterator/iterator');
 const { ListBuilder, ArrayDirector, ListNode } = require('../patterns/builder/builder');
 
 class IteratorListBuilder extends ListBuilder {
 	createList(){
 		return new List();
+	}
+}
+
+class ES6IteratorListBuilder extends ListBuilder {
+	createList(){
+		return new ES6List();
 	}
 }
 
@@ -85,6 +91,13 @@ QUnit.test("ListIterator.prototype.checkCompletion()", function (assert) {
 	assert.ok(iterator.list instanceof List);
 	assert.ok(iterator.current instanceof ListNode);
 	assert.strictEqual(iterator.current.data, 3);
+	assert.strictEqual(result, false);
+
+	iterator.moveNext();
+	result = iterator.checkCompletion();
+
+	assert.ok(iterator.list instanceof List);
+	assert.strictEqual(iterator.current, null);
 	assert.strictEqual(result, true);
 });
 
@@ -157,11 +170,21 @@ QUnit.test("ListIterator.prototype.moveNext() iterate", function (assert) {
 		idx++;
 		iterator.moveNext();
 	}
+
+	assert.strictEqual(idx, 3);
 });
 
-QUnit.test("ES6ListIterator for...of", function (assert) {
+QUnit.test("ES6List.prototype.createIterator()", function (assert) {
+	const list = new ES6List();
+
+	const result = list.createIterator();
+
+	assert.ok(result instanceof ES6ListIterator);
+});
+
+QUnit.test("ES6ListIterator.prototype.moveNext() for...of", function (assert) {
 	const array = [ 1, 2, 3 ];
-	const listBuilder = new IteratorListBuilder();
+	const listBuilder = new ES6IteratorListBuilder();
 	const arrayDirector = new ArrayDirector(array, listBuilder);
 	arrayDirector.construct();
 	
@@ -174,4 +197,32 @@ QUnit.test("ES6ListIterator for...of", function (assert) {
 		assert.strictEqual(item, array[idx]);
 		idx++;
 	}
+});
+
+QUnit.test("Client(baseItemsStorage)", function (assert) {
+	const baseItemsStorage = new List();
+	
+	const result = new Client(baseItemsStorage);
+
+	assert.strictEqual(result.itemsStorage, baseItemsStorage);
+});
+
+QUnit.test("Client.prototype.iterate(callback)", function (assert) {
+	const array = [ 1, 2, 3 ];
+	const listBuilder = new IteratorListBuilder();
+	const arrayDirector = new ArrayDirector(array, listBuilder);
+	arrayDirector.construct();
+	const list = listBuilder.getResult();
+	
+	const client = new Client(list);
+	const items = []; 
+
+	function callback(item){
+		items.push(item);
+	}
+
+	client.iterate(callback);
+
+	assert.strictEqual(client.itemsStorage, list);
+	assert.deepEqual(array, items);
 });

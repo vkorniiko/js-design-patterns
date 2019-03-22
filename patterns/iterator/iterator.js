@@ -48,10 +48,6 @@ class BaseIterator {
 class ListIterator extends BaseIterator {
 	constructor(list){
 		super();
-
-		if(!(list instanceof BaseItemsStorage))
-			throw new Error("Invalid argument 'list'.");
-
 		this.list = list;
 		this.current = list.firstChild;
 	}
@@ -65,22 +61,49 @@ class ListIterator extends BaseIterator {
 	}
 
 	checkCompletion(){
-		return this.current === null || this.current.next === null;
+		return this.current === null;
 	}
 
 	getCurrent(){
-		return this.current.data;
+		return this.current === null ? null : this.current.data;
 	}
 }
 
+class ES6List extends List {
+	createIterator(){
+		return new ES6ListIterator(this);
+	}
+}
 class ES6ListIterator extends ListIterator {
 	[Symbol.iterator](){
 		return { 
 			next: () => {
-				const result = { value: this.getCurrent(), done: this.checkCompletion() };
-				this.moveNext();
+				const done = this.checkCompletion();
+				const result = { value: this.getCurrent(), done: done };
+				
+				if(!done)
+					this.moveNext();
+
 				return result;
 			}
+		};
+	}
+}
+
+class Client {
+	constructor(baseItemsStorage){
+		if(!(baseItemsStorage instanceof BaseItemsStorage))
+			throw new Error("Invalid argument 'baseItemsStorage'.");
+
+		this.itemsStorage = baseItemsStorage;
+	}
+
+	iterate(callback){
+		const iterator = this.itemsStorage.createIterator();
+
+		while(!iterator.checkCompletion()){
+			callback(iterator.getCurrent());
+			iterator.moveNext();
 		};
 	}
 }
@@ -88,5 +111,7 @@ class ES6ListIterator extends ListIterator {
 module.exports = {
 	List,
 	ListIterator,
-	ES6ListIterator
+	ES6List,
+	ES6ListIterator,
+	Client
 };
