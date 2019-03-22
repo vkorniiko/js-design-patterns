@@ -1,12 +1,31 @@
 const { FactoryClient, GMOProductFactory, ClassicProductFactory, GMOPotato, GMOTomato, ClassicPotato, ClassicTomato, BaseProduct, BasePotato, BaseTomato } = require('../patterns/abstractFactory/abstractFactory');
 
+QUnit.test("ClassicPotato()", function (assert) {
+	const result = new ClassicPotato(100);
+	
+	assert.ok(result instanceof ClassicPotato);
+	assert.ok(result.rootCrop);
+	assert.ok(result.vegetable);
+	assert.strictEqual(result.shape, BaseProduct.shapeTypes.sphere);
+	assert.strictEqual(result.weight, 100);
+});
+
+QUnit.test("ClassicTomato()", function (assert) {
+	const result = new ClassicTomato(100);
+	
+	assert.ok(result instanceof ClassicTomato);
+	assert.ok(result.vegetable);
+	assert.strictEqual(result.shape, BaseProduct.shapeTypes.sphere);
+	assert.strictEqual(result.weight, 100);
+});
+
 QUnit.test("GMOPotato()", function (assert) {
 	const result = new GMOPotato(100);
 	
 	assert.ok(result instanceof GMOPotato);
 	assert.ok(result.rootCrop);
 	assert.ok(result.vegetable);
-	assert.strictEqual(result.shape, "cube");
+	assert.strictEqual(result.shape, BaseProduct.shapeTypes.cube);
 	assert.strictEqual(result.weight, 100);
 	assert.strictEqual(result.legs, 5);
 });
@@ -16,7 +35,7 @@ QUnit.test("GMOTomato()", function (assert) {
 	
 	assert.ok(result instanceof GMOTomato);
 	assert.ok(result.vegetable);
-	assert.strictEqual(result.shape, "cube");
+	assert.strictEqual(result.shape, BaseProduct.shapeTypes.cube);
 	assert.strictEqual(result.weight, 100);
 	assert.strictEqual(result.wings, 2);
 });

@@ -37,7 +37,12 @@ class ClassicProductFactory extends BaseProductFactory {
 	}
 }
 
+const shapeTypes = { "sphere": "sphere", cube: "cube" };
 class BaseProduct {
+	static get shapeTypes(){
+		return shapeTypes;
+	}
+
 	constructor(weight){
 		if(new.target === BaseProduct)
 			throw new Error("Can't instantiate abstract type.");
@@ -70,7 +75,7 @@ class BaseTomato extends BaseProduct {
 class GMOPotato extends BasePotato {
 	constructor(weight){
 		super(weight);
-		this.shape = "cube";
+		this.shape = BaseProduct.shapeTypes.cube;
 		this.legs = 5;
 	}
 }
@@ -78,14 +83,14 @@ class GMOPotato extends BasePotato {
 class ClassicPotato extends BasePotato {
 	constructor(weight){
 		super(weight);
-		this.shape = "round";
+		this.shape = BaseProduct.shapeTypes.sphere;
 	}
 }
 
 class GMOTomato extends BaseTomato {
 	constructor(weight){
 		super(weight);
-		this.shape = "cube";
+		this.shape = BaseProduct.shapeTypes.cube;
 		this.wings = 2;
 	}
 }
@@ -93,7 +98,7 @@ class GMOTomato extends BaseTomato {
 class ClassicTomato extends BaseTomato {
 	constructor(weight){
 		super(weight);
-		this.shape = "round";
+		this.shape = BaseProduct.shapeTypes.sphere;
 	}
 }
 
@@ -109,7 +114,7 @@ class FactoryClient {
 		var tomato = this.productFactory.createTomato();
 
 		if(!(tomato instanceof BaseTomato))
-			throw new Error("Invalid operation 'productFactory.createTomato()'.");
+			throw new Error("Invalid operation.");
 
 		return tomato;
 	}
@@ -118,7 +123,7 @@ class FactoryClient {
 		var potato = this.productFactory.createPotato();
 
 		if(!(potato instanceof BasePotato))
-			throw new Error("Invalid operation 'productFactory.createPotato()'.");
+			throw new Error("Invalid operation.");
 
 		return potato;
 	}

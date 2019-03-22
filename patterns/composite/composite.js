@@ -97,12 +97,12 @@ class BinaryOperationComposite extends BaseOperationComposite {
 		const leftOperand = this.getChild(0);
 
 		if(leftOperand == null)
-			throw new Error('Invalid operation!');
+			throw new Error('Invalid operation.');
 
 		const rightOperand = this.getChild(1);
 
 		if(rightOperand == null)
-			throw new Error('Invalid operation!');
+			throw new Error('Invalid operation.');
 
 		const operation = this.operationType;
 
