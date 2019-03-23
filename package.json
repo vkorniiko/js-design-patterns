@@ -1,17 +1,24 @@
 {
   "name": "js-design-patterns",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "The set of samples of design patterns in JavaScript (ES6).",
   "scripts": {
-    "test": "node ./node_modules/qunit/bin/qunit.js"
+    "build": "node ./node_modules/grunt/bin/grunt"
   },
   "author": "Volodymyr Korniyko",
   "license": "MIT",
-  "dependencies": {
-    "qunit": "^2.9.1"
-  },
+  "dependencies": {},
   "repository": {
-	"type": "git",
-	"url": "https://gitlab.com/vkorniyko/js-design-patterns.git"
+    "type": "git",
+    "url": "https://gitlab.com/vkorniyko/js-design-patterns.git"
+  },
+  "devDependencies": {
+    "grunt": "^1.0.4",
+    "grunt-contrib-jshint": "^2.1.0",
+    "grunt-env": "^0.4.4",
+    "grunt-eslint": "^21.0.0",
+    "grunt-istanbul": "^0.8.0",
+    "grunt-qunit-node": "^0.1.0",
+    "qunitjs": "^2.4.1"
   }
 }

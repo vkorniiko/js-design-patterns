@@ -6,20 +6,23 @@ The set of samples of design patterns in JavaScript (ES6).
 
 ## Setup
 
-Clone the repository and install the dependencies:
+Clone the repository:
 
 ```bash
 $ git clone https://gitlab.com/vkorniyko/js-design-patterns.git
 $ cd js-design-patterns
+```
+
+Install the dependensies:
+
+```bash
 $ npm i
 ```
 
-## Tests
+Perform linting, testing, code coverage measurement:
 
-Perform tests using node.js and qunit.js:
-
-```
-npm test
+```bash
+$ npm run build
 ```
 
 ## Patterns
