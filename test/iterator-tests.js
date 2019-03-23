@@ -1,228 +1,232 @@
-const { List, ListIterator, ES6List, ES6ListIterator, Client } = require('../patterns/iterator/iterator');
-const { ListBuilder, ArrayDirector, ListNode } = require('../patterns/builder/builder');
+"use strict";
 
+const requireHelper = require("./_require_helper");
+const testHelper = require("./_test_helper");
+const { List, ListIterator, ES6List, ES6ListIterator, BaseItemsStorage, 
+  BaseIterator, Client } = requireHelper("../patterns/iterator/iterator");
+const { ListBuilder, ArrayDirector, 
+  ListNode } = requireHelper("../patterns/builder/builder");
+
+QUnit.test("Check abstract types", (assert) => {
+  testHelper.checkAbstract(BaseItemsStorage, assert);
+  testHelper.checkAbstractMethods(BaseItemsStorage,
+    ["createIterator"], assert);
+
+  testHelper.checkAbstract(BaseIterator, assert);
+  testHelper.checkAbstractMethods(BaseIterator,
+    ["reset", "moveNext", "checkCompletion", "getCurrent"], assert);
+});
+
+QUnit.test("Check invalid arguments", (assert) => {
+  testHelper.checkConstructorInvalidArguments(
+    Client, ["baseItemsStorage"],[], assert);
+});
 class IteratorListBuilder extends ListBuilder {
-	createList(){
-		return new List();
-	}
+  createList(){
+    return new List();
+  }
 }
 
 class ES6IteratorListBuilder extends ListBuilder {
-	createList(){
-		return new ES6List();
-	}
+  createList(){
+    return new ES6List();
+  }
 }
 
-QUnit.test("List()", function (assert) {
-	const result = new List();
+QUnit.test("List()", (assert) => {
+  const result = new List();
 
-	assert.strictEqual(result.firstChild, null);
-	assert.strictEqual(result.lastChild, null);
+  assert.strictEqual(result.firstChild, null);
+  assert.strictEqual(result.lastChild, null);
 });
 
-QUnit.test("List.prototype.createIterator()", function (assert) {
-	const list = new List();
+QUnit.test("List.prototype.createIterator()", (assert) => {
+  const list = new List();
 
-	const result = list.createIterator();
+  const result = list.createIterator();
 
-	assert.ok(result instanceof ListIterator);
+  assert.ok(result instanceof ListIterator);
 });
 
-QUnit.test("ListIterator(list)", function (assert) {
-	const array = [ 1, 2, 3 ];
-	const listBuilder = new IteratorListBuilder();
-	const arrayDirector = new ArrayDirector(array, listBuilder);
-	arrayDirector.construct();
-	
-	const list = listBuilder.getResult();
-	
-	const result = new ListIterator(list);
+QUnit.test("ListIterator(list)", (assert) => {
+  const array = [ 1, 2, 3 ];
+  const listBuilder = new IteratorListBuilder();
+  const arrayDirector = new ArrayDirector(listBuilder, array);
+  arrayDirector.construct();
+  const list = listBuilder.getResult();
+  const result = new ListIterator(list);
 
-	assert.ok(result.list instanceof List);
-	assert.ok(result.current instanceof ListNode);
-	assert.strictEqual(result.current.data, 1);
+  assert.ok(result.list instanceof List);
+  assert.ok(result.current instanceof ListNode);
+  assert.strictEqual(result.current.data, 1);
 });
 
-QUnit.test("ListIterator.prototype.moveNext()", function (assert) {
-	const array = [ 1, 2, 3 ];
-	const listBuilder = new IteratorListBuilder();
-	const arrayDirector = new ArrayDirector(array, listBuilder);
-	arrayDirector.construct();
-	
-	const list = listBuilder.getResult();
-	
-	const iterator = new ListIterator(list);
+QUnit.test("ListIterator.prototype.moveNext()", (assert) => {
+  const array = [ 1, 2, 3 ];
+  const listBuilder = new IteratorListBuilder();
+  const arrayDirector = new ArrayDirector(listBuilder, array);
+  arrayDirector.construct();
+  const list = listBuilder.getResult();
+  const iterator = new ListIterator(list);
 
-	iterator.moveNext();
+  iterator.moveNext();
 
-	assert.ok(iterator.list instanceof List);
-	assert.ok(iterator.current instanceof ListNode);
-	assert.strictEqual(iterator.current.data, 2);
+  assert.ok(iterator.list instanceof List);
+  assert.ok(iterator.current instanceof ListNode);
+  assert.strictEqual(iterator.current.data, 2);
 });
 
-QUnit.test("ListIterator.prototype.checkCompletion()", function (assert) {
-	const array = [ 1, 2, 3 ];
-	const listBuilder = new IteratorListBuilder();
-	const arrayDirector = new ArrayDirector(array, listBuilder);
-	arrayDirector.construct();
-	
-	const list = listBuilder.getResult();
-	
-	const iterator = new ListIterator(list);
+QUnit.test("ListIterator.prototype.checkCompletion()", (assert) => {
+  const array = [ 1, 2, 3 ];
+  const listBuilder = new IteratorListBuilder();
+  const arrayDirector = new ArrayDirector(listBuilder, array);
+  arrayDirector.construct();
+  const list = listBuilder.getResult();
+  const iterator = new ListIterator(list);
 
-	let result = iterator.checkCompletion();
+  let result = iterator.checkCompletion();
 
-	assert.ok(iterator.list instanceof List);
-	assert.ok(iterator.current instanceof ListNode);
-	assert.strictEqual(iterator.current.data, 1);
-	assert.strictEqual(result, false);
+  assert.ok(iterator.list instanceof List);
+  assert.ok(iterator.current instanceof ListNode);
+  assert.strictEqual(iterator.current.data, 1);
+  assert.strictEqual(result, false);
 
-	iterator.moveNext();
-	result = iterator.checkCompletion();
+  iterator.moveNext();
+  result = iterator.checkCompletion();
 
-	assert.ok(iterator.list instanceof List);
-	assert.ok(iterator.current instanceof ListNode);
-	assert.strictEqual(iterator.current.data, 2);
-	assert.strictEqual(result, false);
+  assert.ok(iterator.list instanceof List);
+  assert.ok(iterator.current instanceof ListNode);
+  assert.strictEqual(iterator.current.data, 2);
+  assert.strictEqual(result, false);
 
-	iterator.moveNext();
-	result = iterator.checkCompletion();
+  iterator.moveNext();
+  result = iterator.checkCompletion();
 
-	assert.ok(iterator.list instanceof List);
-	assert.ok(iterator.current instanceof ListNode);
-	assert.strictEqual(iterator.current.data, 3);
-	assert.strictEqual(result, false);
+  assert.ok(iterator.list instanceof List);
+  assert.ok(iterator.current instanceof ListNode);
+  assert.strictEqual(iterator.current.data, 3);
+  assert.strictEqual(result, false);
 
-	iterator.moveNext();
-	result = iterator.checkCompletion();
+  iterator.moveNext();
+  result = iterator.checkCompletion();
 
-	assert.ok(iterator.list instanceof List);
-	assert.strictEqual(iterator.current, null);
-	assert.strictEqual(result, true);
+  assert.ok(iterator.list instanceof List);
+  assert.strictEqual(iterator.current, null);
+  assert.strictEqual(result, true);
 });
 
-QUnit.test("ListIterator.prototype.getCurrent()", function (assert) {
-	const array = [ 1, 2, 3 ];
-	const listBuilder = new IteratorListBuilder();
-	const arrayDirector = new ArrayDirector(array, listBuilder);
-	arrayDirector.construct();
-	
-	const list = listBuilder.getResult();
-	
-	const iterator = new ListIterator(list);
+QUnit.test("ListIterator.prototype.getCurrent()", (assert) => {
+  const array = [ 1, 2, 3 ];
+  const listBuilder = new IteratorListBuilder();
+  const arrayDirector = new ArrayDirector(listBuilder, array);
+  arrayDirector.construct();
+  const list = listBuilder.getResult();
+  const iterator = new ListIterator(list);
 
-	let result = iterator.getCurrent();
+  let result = iterator.getCurrent();
 
-	assert.ok(iterator.list instanceof List);
-	assert.ok(iterator.current instanceof ListNode);
-	assert.strictEqual(iterator.current.data, 1);
-	assert.strictEqual(result, 1);
+  assert.ok(iterator.list instanceof List);
+  assert.ok(iterator.current instanceof ListNode);
+  assert.strictEqual(iterator.current.data, 1);
+  assert.strictEqual(result, 1);
 
-	iterator.moveNext();
-	result = iterator.getCurrent();
+  iterator.moveNext();
+  result = iterator.getCurrent();
 
-	assert.ok(iterator.list instanceof List);
-	assert.ok(iterator.current instanceof ListNode);
-	assert.strictEqual(iterator.current.data, 2);
-	assert.strictEqual(result, 2);
+  assert.ok(iterator.list instanceof List);
+  assert.ok(iterator.current instanceof ListNode);
+  assert.strictEqual(iterator.current.data, 2);
+  assert.strictEqual(result, 2);
 
-	iterator.moveNext();
-	result = iterator.getCurrent();
+  iterator.moveNext();
+  result = iterator.getCurrent();
 
-	assert.ok(iterator.list instanceof List);
-	assert.ok(iterator.current instanceof ListNode);
-	assert.strictEqual(iterator.current.data, 3);
-	assert.strictEqual(result, 3);
+  assert.ok(iterator.list instanceof List);
+  assert.ok(iterator.current instanceof ListNode);
+  assert.strictEqual(iterator.current.data, 3);
+  assert.strictEqual(result, 3);
 });
 
-QUnit.test("ListIterator.prototype.reset()", function (assert) {
-	const array = [ 1, 2, 3 ];
-	const listBuilder = new IteratorListBuilder();
-	const arrayDirector = new ArrayDirector(array, listBuilder);
-	arrayDirector.construct();
-	
-	const list = listBuilder.getResult();
-	
-	const iterator = new ListIterator(list);
+QUnit.test("ListIterator.prototype.reset()", (assert) => {
+  const array = [ 1, 2, 3 ];
+  const listBuilder = new IteratorListBuilder();
+  const arrayDirector = new ArrayDirector(listBuilder, array);
+  arrayDirector.construct();
+  const list = listBuilder.getResult();
+  const iterator = new ListIterator(list);
 
-	iterator.moveNext();
-	iterator.reset();
+  iterator.moveNext();
+  iterator.reset();
 
-	assert.ok(iterator.list instanceof List);
-	assert.ok(iterator.current instanceof ListNode);
-	assert.strictEqual(iterator.current.data, 1);
+  assert.ok(iterator.list instanceof List);
+  assert.ok(iterator.current instanceof ListNode);
+  assert.strictEqual(iterator.current.data, 1);
 });
 
-QUnit.test("ListIterator.prototype.moveNext() iterate", function (assert) {
-	const array = [ 1, 2, 3 ];
-	const listBuilder = new IteratorListBuilder();
-	const arrayDirector = new ArrayDirector(array, listBuilder);
-	arrayDirector.construct();
-	
-	const list = listBuilder.getResult();
-	
-	const iterator = new ListIterator(list);
+QUnit.test("ListIterator.prototype.moveNext() iterate", (assert) => {
+  const array = [ 1, 2, 3 ];
+  const listBuilder = new IteratorListBuilder();
+  const arrayDirector = new ArrayDirector(listBuilder, array);
+  arrayDirector.construct();
+  const list = listBuilder.getResult();
+  const iterator = new ListIterator(list);
 
-	let idx = 0;
+  let idx = 0;
 
-	while(!iterator.checkCompletion()){
-		assert.strictEqual(iterator.getCurrent(), array[idx]);
-		idx++;
-		iterator.moveNext();
-	}
+  while(!iterator.checkCompletion()){
+    assert.strictEqual(iterator.getCurrent(), array[idx]);
+    idx++;
+    iterator.moveNext();
+  }
 
-	assert.strictEqual(idx, 3);
+  assert.strictEqual(idx, 3);
 });
 
-QUnit.test("ES6List.prototype.createIterator()", function (assert) {
-	const list = new ES6List();
+QUnit.test("ES6List.prototype.createIterator()", (assert) => {
+  const list = new ES6List();
 
-	const result = list.createIterator();
+  const result = list.createIterator();
 
-	assert.ok(result instanceof ES6ListIterator);
+  assert.ok(result instanceof ES6ListIterator);
 });
 
-QUnit.test("ES6ListIterator.prototype.moveNext() for...of", function (assert) {
-	const array = [ 1, 2, 3 ];
-	const listBuilder = new ES6IteratorListBuilder();
-	const arrayDirector = new ArrayDirector(array, listBuilder);
-	arrayDirector.construct();
-	
-	const list = listBuilder.getResult();
-	
-	const iterator = new ES6ListIterator(list);
-	let idx = 0;
+QUnit.test("ES6ListIterator.prototype.moveNext() for...of", (assert) => {
+  const array = [ 1, 2, 3 ];
+  const listBuilder = new ES6IteratorListBuilder();
+  const arrayDirector = new ArrayDirector(listBuilder, array);
+  arrayDirector.construct();
+  const list = listBuilder.getResult();
+  const iterator = new ES6ListIterator(list);
+  let idx = 0;
 
-	for(let item of iterator){
-		assert.strictEqual(item, array[idx]);
-		idx++;
-	}
+  for(let item of iterator){
+    assert.strictEqual(item, array[idx]);
+    idx++;
+  }
 });
 
-QUnit.test("Client(baseItemsStorage)", function (assert) {
-	const baseItemsStorage = new List();
-	
-	const result = new Client(baseItemsStorage);
+QUnit.test("Client(baseItemsStorage)", (assert) => {
+  const baseItemsStorage = new List();
+  const result = new Client(baseItemsStorage);
 
-	assert.strictEqual(result.itemsStorage, baseItemsStorage);
+  assert.strictEqual(result.itemsStorage, baseItemsStorage);
 });
 
-QUnit.test("Client.prototype.iterate(callback)", function (assert) {
-	const array = [ 1, 2, 3 ];
-	const listBuilder = new IteratorListBuilder();
-	const arrayDirector = new ArrayDirector(array, listBuilder);
-	arrayDirector.construct();
-	const list = listBuilder.getResult();
-	
-	const client = new Client(list);
-	const items = []; 
+QUnit.test("Client.prototype.iterate(callback)", (assert) => {
+  const array = [ 1, 2, 3 ];
+  const listBuilder = new IteratorListBuilder();
+  const arrayDirector = new ArrayDirector(listBuilder, array);
+  arrayDirector.construct();
+  const list = listBuilder.getResult();
+  const client = new Client(list);
+  const items = []; 
 
-	function callback(item){
-		items.push(item);
-	}
+  function callback(item){
+    items.push(item);
+  }
 
-	client.iterate(callback);
+  client.iterate(callback);
 
-	assert.strictEqual(client.itemsStorage, list);
-	assert.deepEqual(array, items);
+  assert.strictEqual(client.itemsStorage, list);
+  assert.deepEqual(array, items);
 });

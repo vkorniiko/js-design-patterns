@@ -1,211 +1,232 @@
-const { DB1Implementor, DB2Implementor, ORMDescriptor, ORMDebugDescriptor } = require('../patterns/bridge/bridge');
+"use strict";
 
-QUnit.test("DB1Implementor.prototype.select(tableName)", function (assert) {
-	const implementor = new DB1Implementor();
-	const tableName = "testTable";
+const requireHelper = require("./_require_helper");
+const testHelper = require("./_test_helper");
+const { DB1Implementor, DB2Implementor, ORMDescriptor,
+  BaseDBImplementor, BaseORMDescriptor,
+  ORMDebugDescriptor } = requireHelper("../patterns/bridge/bridge");
+  
+QUnit.test("Check abstract types", (assert) => {
+  testHelper.checkAbstract(BaseDBImplementor, assert);
+  testHelper.checkAbstractMethods(BaseDBImplementor,
+    ["select", "update", "delete", "insert"], assert);
 
-	const result = implementor.select(tableName);
-
-	assert.ok(result instanceof Promise);
+  testHelper.checkAbstract(BaseORMDescriptor, assert);
+  testHelper.checkAbstractMethods(BaseORMDescriptor,
+    ["selectAll", "updateAll", "deleteAll", "insertAll"], assert);
 });
 
-QUnit.test("DB2Implementor.prototype.select(tableName)", function (assert) {
-	const implementor = new DB2Implementor();
-	const tableName = "testTable";
-
-	const result = implementor.select(tableName);
-
-	assert.ok(result instanceof Promise);
+QUnit.test("Check invalid arguments", (assert) => {
+  testHelper.checkConstructorInvalidArguments(
+    ORMDescriptor, ["implementor"], [], assert);
 });
 
-QUnit.test("DB1Implementor.prototype.update(tableName, clones)", function (assert) {
-	const implementor = new DB1Implementor();
-	const tableName = "testTable";
-	const clones = [];
+QUnit.test("DB1Implementor.prototype.select(tableName)", (assert) => {
+  const implementor = new DB1Implementor();
+  const tableName = "testTable";
 
-	const result = implementor.update(tableName, clones);
+  const result = implementor.select(tableName);
 
-	assert.ok(result instanceof Promise);
+  assert.ok(result instanceof Promise);
 });
 
-QUnit.test("DB2Implementor.prototype.update(tableName, clones)", function (assert) {
-	const implementor = new DB2Implementor();
-	const tableName = "testTable";
-	const clones = [];
+QUnit.test("DB2Implementor.prototype.select(tableName)", (assert) => {
+  const implementor = new DB2Implementor();
+  const tableName = "testTable";
 
-	const result = implementor.update(tableName, clones);
+  const result = implementor.select(tableName);
 
-	assert.ok(result instanceof Promise);
+  assert.ok(result instanceof Promise);
 });
 
-QUnit.test("DB1Implementor.prototype.delete(tableName, clones)", function (assert) {
-	const implementor = new DB1Implementor();
-	const tableName = "testTable";
-	const clones = [];
+QUnit.test("DB1Implementor.prototype.update(tableName, clones)", (assert) => {
+  const implementor = new DB1Implementor();
+  const tableName = "testTable";
+  const clones = [];
 
-	const result = implementor.delete(tableName, clones);
+  const result = implementor.update(tableName, clones);
 
-	assert.ok(result instanceof Promise);
+  assert.ok(result instanceof Promise);
 });
 
-QUnit.test("DB2Implementor.prototype.delete(tableName, clones)", function (assert) {
-	const implementor = new DB2Implementor();
-	const tableName = "testTable";
-	const clones = [];
+QUnit.test("DB2Implementor.prototype.update(tableName, clones)", (assert) => {
+  const implementor = new DB2Implementor();
+  const tableName = "testTable";
+  const clones = [];
 
-	const result = implementor.delete(tableName, clones);
+  const result = implementor.update(tableName, clones);
 
-	assert.ok(result instanceof Promise);
+  assert.ok(result instanceof Promise);
 });
 
-QUnit.test("DB1Implementor.prototype.insert(tableName, clones)", function (assert) {
-	const implementor = new DB1Implementor();
-	const tableName = "testTable";
-	const clones = [];
+QUnit.test("DB1Implementor.prototype.delete(tableName, clones)", (assert) => {
+  const implementor = new DB1Implementor();
+  const tableName = "testTable";
+  const clones = [];
 
-	const result = implementor.insert(tableName, clones);
+  const result = implementor.delete(tableName, clones);
 
-	assert.ok(result instanceof Promise);
+  assert.ok(result instanceof Promise);
 });
 
-QUnit.test("DB2Implementor.prototype.insert(tableName, clones)", function (assert) {
-	const implementor = new DB2Implementor();
-	const tableName = "testTable";
-	const clones = [];
+QUnit.test("DB2Implementor.prototype.delete(tableName, clones)", (assert) => {
+  const implementor = new DB2Implementor();
+  const tableName = "testTable";
+  const clones = [];
 
-	const result = implementor.insert(tableName, clones);
+  const result = implementor.delete(tableName, clones);
 
-	assert.ok(result instanceof Promise);
+  assert.ok(result instanceof Promise);
 });
 
-QUnit.test("ORMDescriptor(implementor)", function (assert) {
-	const implementor = new DB2Implementor();
+QUnit.test("DB1Implementor.prototype.insert(tableName, clones)", (assert) => {
+  const implementor = new DB1Implementor();
+  const tableName = "testTable";
+  const clones = [];
 
-	const result = new ORMDescriptor(implementor);
+  const result = implementor.insert(tableName, clones);
 
-	assert.strictEqual(result.implementor, implementor);
+  assert.ok(result instanceof Promise);
 });
 
-QUnit.test("ORMDebugDescriptor(implementor)", function (assert) {
-	const implementor = new DB1Implementor();
+QUnit.test("DB2Implementor.prototype.insert(tableName, clones)", (assert) => {
+  const implementor = new DB2Implementor();
+  const tableName = "testTable";
+  const clones = [];
 
-	const result = new ORMDebugDescriptor(implementor);
+  const result = implementor.insert(tableName, clones);
 
-	assert.strictEqual(result.implementor, implementor);
+  assert.ok(result instanceof Promise);
 });
 
-QUnit.test("ORMDescriptor.prototype.selectAll(tableName)", function (assert) {
-	const implementor = new DB2Implementor();
-	const descriptor = new ORMDescriptor(implementor);
-	const tableName = "testTable";
+QUnit.test("ORMDescriptor(implementor)", (assert) => {
+  const implementor = new DB2Implementor();
 
-	const result = descriptor.selectAll(tableName)
+  const result = new ORMDescriptor(implementor);
 
-	assert.ok(result instanceof Promise);
+  assert.strictEqual(result.implementor, implementor);
 });
 
-QUnit.test("ORMDebugDescriptor.prototype.selectAll(tableName)", function (assert) {
-	const implementor = new DB2Implementor();
-	const descriptor = new ORMDebugDescriptor(implementor);
-	const tableName = "testTable";
+QUnit.test("ORMDebugDescriptor(implementor)", (assert) => {
+  const implementor = new DB1Implementor();
 
-	const result = descriptor.selectAll(tableName)
+  const result = new ORMDebugDescriptor(implementor);
 
-	assert.ok(result instanceof Promise);
+  assert.strictEqual(result.implementor, implementor);
 });
 
-QUnit.test("ORMDescriptor.prototype.updateAll(tableName, items)", function (assert) {
-	const implementor = new DB2Implementor();
-	const descriptor = new ORMDescriptor(implementor);
-	const tableName = "testTable";
-	const items = [{}];
+QUnit.test("ORMDescriptor.prototype.selectAll(tableName)", (assert) => {
+  const implementor = new DB2Implementor();
+  const descriptor = new ORMDescriptor(implementor);
+  const tableName = "testTable";
 
-	const result = descriptor.updateAll(tableName, items)
+  const result = descriptor.selectAll(tableName);
 
-	assert.ok(result instanceof Promise);
-	assert.deepEqual(items, [{}]);
+  assert.ok(result instanceof Promise);
 });
 
-QUnit.test("ORMDescriptor.prototype.deleteAll(tableName, items)", function (assert) {
-	const implementor = new DB2Implementor();
-	const descriptor = new ORMDescriptor(implementor);
-	const tableName = "testTable";
-	const items = [{}];
+QUnit.test("ORMDebugDescriptor.prototype.selectAll(tableName)", (assert) => {
+  const implementor = new DB2Implementor();
+  const descriptor = new ORMDebugDescriptor(implementor);
+  const tableName = "testTable";
 
-	const result = descriptor.deleteAll(tableName, items)
+  const result = descriptor.selectAll(tableName);
 
-	assert.ok(result instanceof Promise);
-	assert.deepEqual(items, [{}]);
+  assert.ok(result instanceof Promise);
 });
 
-QUnit.test("ORMDescriptor.prototype.insertAll(tableName, items)", function (assert) {
-	const implementor = new DB2Implementor();
-	const descriptor = new ORMDescriptor(implementor);
-	const tableName = "testTable";
-	const items = [{}];
+QUnit.test("ORMDescriptor.prototype.updateAll(tableName, items)", (assert) => {
+  const implementor = new DB2Implementor();
+  const descriptor = new ORMDescriptor(implementor);
+  const tableName = "testTable";
+  const items = [{}];
 
-	const result = descriptor.insertAll(tableName, items)
+  const result = descriptor.updateAll(tableName, items);
 
-	assert.ok(result instanceof Promise);
-	assert.deepEqual(items, [{}]);
+  assert.ok(result instanceof Promise);
+  assert.deepEqual(items, [{}]);
 });
 
-QUnit.test("ORMDebugDescriptor.prototype.updateAll(tableName, items)", function (assert) {
-	const implementor = new DB2Implementor();
-	const descriptor = new ORMDebugDescriptor(implementor);
-	const tableName = "testTable";
-	const items = [{}];
+QUnit.test("ORMDescriptor.prototype.deleteAll(tableName, items)", (assert) => {
+  const implementor = new DB2Implementor();
+  const descriptor = new ORMDescriptor(implementor);
+  const tableName = "testTable";
+  const items = [{}];
 
-	const itemToDebugOrig = descriptor.itemToDebugJSON.bind(descriptor);
-	const clones = [];
-	descriptor.itemToDebugJSON = (item) => {
-		const clone = itemToDebugOrig(item);
-		clones.push(clone);
-	};
+  const result = descriptor.deleteAll(tableName, items);
 
-	const result = descriptor.updateAll(tableName, items)
-
-	assert.ok(result instanceof Promise);
-	assert.deepEqual(items, [{}]);
-	assert.deepEqual(clones, ['{"_debug":true}']);
+  assert.ok(result instanceof Promise);
+  assert.deepEqual(items, [{}]);
 });
 
-QUnit.test("ORMDebugDescriptor.prototype.deleteAll(tableName, items)", function (assert) {
-	const implementor = new DB2Implementor();
-	const descriptor = new ORMDebugDescriptor(implementor);
-	const tableName = "testTable";
-	const items = [{}];
+QUnit.test("ORMDescriptor.prototype.insertAll(tableName, items)", (assert) => {
+  const implementor = new DB2Implementor();
+  const descriptor = new ORMDescriptor(implementor);
+  const tableName = "testTable";
+  const items = [{}];
 
-	const itemToDebugOrig = descriptor.itemToDebugJSON.bind(descriptor);
-	const clones = [];
-	descriptor.itemToDebugJSON = (item) => {
-		const clone = itemToDebugOrig(item);
-		clones.push(clone);
-	};
+  const result = descriptor.insertAll(tableName, items);
 
-	const result = descriptor.deleteAll(tableName, items)
-
-	assert.ok(result instanceof Promise);
-	assert.deepEqual(items, [{}]);
-	assert.deepEqual(clones, ['{"_debug":true}']);
+  assert.ok(result instanceof Promise);
+  assert.deepEqual(items, [{}]);
 });
 
-QUnit.test("ORMDebugDescriptor.prototype.insertAll(tableName, items)", function (assert) {
-	const implementor = new DB2Implementor();
-	const descriptor = new ORMDebugDescriptor(implementor);
-	const tableName = "testTable";
-	const items = [{}];
+QUnit.test("ORMDebugDescriptor.prototype.updateAll(tableName, items)", (assert) => {
+  const implementor = new DB2Implementor();
+  const descriptor = new ORMDebugDescriptor(implementor);
+  const tableName = "testTable";
+  const items = [{}];
 
-	const itemToDebugOrig = descriptor.itemToDebugJSON.bind(descriptor);
-	const clones = [];
-	descriptor.itemToDebugJSON = (item) => {
-		const clone = itemToDebugOrig(item);
-		clones.push(clone);
-	};
+  const itemToDebugOrig = descriptor.itemToDebugJSON.bind(descriptor);
+  const clones = [];
+  descriptor.itemToDebugJSON = (item) => {
+    const clone = itemToDebugOrig(item);
+    clones.push(clone);
+  };
 
-	const result = descriptor.insertAll(tableName, items)
+  const result = descriptor.updateAll(tableName, items);
 
-	assert.ok(result instanceof Promise);
-	assert.deepEqual(items, [{}]);
-	assert.deepEqual(clones, ['{"_debug":true}']);
+  assert.ok(result instanceof Promise);
+  assert.deepEqual(items, [{}]);
+  assert.deepEqual(clones, ["{\"_debug\":true}"]);
+});
+
+QUnit.test("ORMDebugDescriptor.prototype.deleteAll(tableName, items)", (assert) => {
+  const implementor = new DB2Implementor();
+  const descriptor = new ORMDebugDescriptor(implementor);
+  const tableName = "testTable";
+  const items = [{}];
+
+  const itemToDebugOrig = descriptor.itemToDebugJSON.bind(descriptor);
+  const clones = [];
+  descriptor.itemToDebugJSON = (item) => {
+    const clone = itemToDebugOrig(item);
+    clones.push(clone);
+  };
+
+  const result = descriptor.deleteAll(tableName, items);
+
+  assert.ok(result instanceof Promise);
+  assert.deepEqual(items, [{}]);
+  assert.deepEqual(clones, ["{\"_debug\":true}"]);
+});
+
+QUnit.test("ORMDebugDescriptor.prototype.insertAll(tableName, items)", (assert) => {
+  const implementor = new DB2Implementor();
+  const descriptor = new ORMDebugDescriptor(implementor);
+  const tableName = "testTable";
+  const items = [{}];
+
+  const itemToDebugOrig = descriptor.itemToDebugJSON.bind(descriptor);
+  const clones = [];
+  descriptor.itemToDebugJSON = (item) => {
+    const clone = itemToDebugOrig(item);
+    clones.push(clone);
+  };
+
+  const result = descriptor.insertAll(tableName, items);
+
+  assert.ok(result instanceof Promise);
+  assert.deepEqual(items, [{}]);
+  assert.deepEqual(clones, ["{\"_debug\":true}"]);
 });

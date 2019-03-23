@@ -1,70 +1,81 @@
-const { House } = require('../patterns/templateMethod/templateMethod');
+"use strict";
 
-QUnit.test("House()", function (assert) {
-	const result = new House();
+const requireHelper = require("./_require_helper");
+const testHelper = require("./_test_helper");
+const { BaseHouse, House } = requireHelper("../patterns/templateMethod/templateMethod");
 
-	assert.deepEqual(result.builtParts, []);
+QUnit.test("Check abstract types", (assert) => {
+  testHelper.checkAbstract(BaseHouse, assert);
+  testHelper.checkAbstractMethods(BaseHouse,
+    ["digFoundationPit", "layFoundation", "installDoors", "installWindows", "installRoof"], assert);
 });
 
-QUnit.test("House.prototype.digFoundationPit()", function (assert) {
-	const house = new House();
+QUnit.test("House()", (assert) => {
+  const result = new House();
 
-	house.digFoundationPit();
-
-	assert.deepEqual(house.builtParts, [House.parts.foundationPit]);
+  assert.deepEqual(result.builtParts, []);
 });
 
-QUnit.test("House.prototype.layFoundation()", function (assert) {
-	const house = new House();
+QUnit.test("House.prototype.digFoundationPit()", (assert) => {
+  const house = new House();
 
-	house.layFoundation();
+  house.digFoundationPit();
 
-	assert.deepEqual(house.builtParts, [House.parts.foundation]);
+  assert.deepEqual(house.builtParts, [House.parts.foundationPit]);
 });
 
-QUnit.test("House.prototype.installDoors()", function (assert) {
-	const house = new House();
+QUnit.test("House.prototype.layFoundation()", (assert) => {
+  const house = new House();
 
-	house.installDoors();
+  house.layFoundation();
 
-	assert.deepEqual(house.builtParts, [House.parts.doors]);
+  assert.deepEqual(house.builtParts, [House.parts.foundation]);
 });
 
-QUnit.test("House.prototype.installWindows()", function (assert) {
-	const house = new House();
+QUnit.test("House.prototype.installDoors()", (assert) => {
+  const house = new House();
 
-	house.installWindows();
+  house.installDoors();
 
-	assert.deepEqual(house.builtParts, [House.parts.windows]);
+  assert.deepEqual(house.builtParts, [House.parts.doors]);
 });
 
-QUnit.test("House.prototype.installRoof()", function (assert) {
-	const house = new House();
+QUnit.test("House.prototype.installWindows()", (assert) => {
+  const house = new House();
 
-	house.installRoof();
+  house.installWindows();
 
-	assert.deepEqual(house.builtParts, [House.parts.roof]);
+  assert.deepEqual(house.builtParts, [House.parts.windows]);
 });
 
-QUnit.test("House.prototype.buildWalls()", function (assert) {
-	const house = new House();
+QUnit.test("House.prototype.installRoof()", (assert) => {
+  const house = new House();
 
-	house.buildWalls();
+  house.installRoof();
 
-	assert.deepEqual(house.builtParts, [House.parts.walls, House.parts.doors, House.parts.windows]);
+  assert.deepEqual(house.builtParts, [House.parts.roof]);
 });
 
-QUnit.test("House.prototype.build()", function (assert) {
-	const house = new House();
+QUnit.test("House.prototype.buildWalls()", (assert) => {
+  const house = new House();
 
-	house.build();
+  house.buildWalls();
 
-	assert.deepEqual(house.builtParts, [
-		House.parts.foundationPit, 
-		House.parts.foundation, 
-		House.parts.walls, 
-		House.parts.doors, 
-		House.parts.windows,
-		House.parts.roof
-	]);
+  assert.deepEqual(house.builtParts,
+    [House.parts.walls, House.parts.doors, House.parts.windows]);
+});
+
+QUnit.test("House.prototype.build()", (assert) => {
+  const house = new House();
+
+  house.build();
+
+  assert.deepEqual(house.builtParts, [
+    House.parts.foundationPit,
+    House.parts.foundation,
+    House.parts.walls,
+    House.parts.doors,
+    House.parts.windows,
+    House.parts.roof
+  ]);
 });
