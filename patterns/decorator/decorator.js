@@ -1,49 +1,51 @@
-class AnimalComponent {
-	constructor(){
-		this.foodEaten = 0;
-	}
+"use strict";
 
-	eat(count){
-		return this.foodEaten += count;
-	}
+class AnimalComponent {
+  constructor(){
+    this.foodEaten = 0;
+  }
+
+  eat(count){
+    return this.foodEaten += count;
+  }
 }
 
 class BaseAnimalDecorator {
-	constructor(animalComponent){
-		if(new.target === BaseAnimalDecorator)
-			throw new Error("Can't instantiate abstract type.");
+  constructor(animalComponent){
+    if(new.target === BaseAnimalDecorator)
+      throw new Error("Can't instantiate abstract type.");
 
-		if(!(animalComponent instanceof AnimalComponent))
-			throw new Error("Invalid argument 'animalComponent'.");
+    if(!(animalComponent instanceof AnimalComponent))
+      throw new Error("Invalid argument 'animalComponent'.");
 
-		this.animalComponent = animalComponent;
-	}
+    this.animalComponent = animalComponent;
+  }
 
-	eat(count){
-		return this.animalComponent.eat(count);
-	}
+  eat(count){
+    return this.animalComponent.eat(count);
+  }
 }
 
 class PigAnimalDecorator extends BaseAnimalDecorator {
-	constructor(animalComponent){
-		super(animalComponent);
-		this.grunted = false;
-	}
-	
-	eat(count){
-		var result = super.eat(count);
-		this.grunt();
+  constructor(animalComponent){
+    super(animalComponent);
+    this.grunted = false;
+  }
 
-		return result;
-	}
+  eat(count){
+    const result = super.eat(count);
+    this.grunt();
 
-	grunt(){
-		this.grunted = true;
-	}
+    return result;
+  }
+
+  grunt(){
+    this.grunted = true;
+  }
 }
 
 module.exports = {
-	AnimalComponent,
-	BaseAnimalDecorator,
-	PigAnimalDecorator
+  BaseAnimalDecorator,
+  AnimalComponent,
+  PigAnimalDecorator
 };

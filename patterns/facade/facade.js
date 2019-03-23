@@ -1,52 +1,58 @@
-class WheelModel{
-	constructor(){
-		this.rotations = 0;
-	}
+"use strict";
 
-	rotate(rotations){
-		return this.rotations += rotations;
-	}
+class WheelModel{
+  constructor(){
+    this.rotations = 0;
+  }
+
+  rotate(rotations){
+    return this.rotations += rotations;
+  }
 }
 
 class ChainModel {
-	constructor(pedals, wheels){
-		this.pedals = pedals;
-		this.wheels = wheels;
-		this.cycles = 0;
-	}
+  constructor(pedals, wheels){
+    this.pedals = pedals;
+    this.wheels = wheels;
+    this.cycles = 0;
+  }
 
-	cycle(cycles){
-		this.cycles += cycles;
-		this.wheels.forEach(wheel => {
-			wheel.rotate(cycles * 5);
-		});
+  cycle(cycles){
+    const coef = 5;
+    this.cycles += cycles;
 
-		return this.cycles;
-	}
+    this.wheels.forEach(wheel => {
+      wheel.rotate(cycles * coef);
+    });
+
+    return this.cycles;
+  }
 }
 
 class PedalModel {
-	constructor(chain){
-		this.chain = chain;
-		this.twirls = 0;
-	}
+  constructor(chain){
+    this.chain = chain;
+    this.twirls = 0;
+  }
 
-	twirl(count){
-		this.twirls += count;
-		this.chain.cycle(count * 0.5);
+  twirl(count){
+    const coef = 0.5;
 
-		return this.twirls;
-	}
+    this.twirls += count;
+    this.chain.cycle(count * coef);
+
+    return this.twirls;
+  }
 }
 
 class RudderModel {
-	constructor(){
-		this.direction = null;
-	}
+  constructor(){
+    this.direction = null;
+  }
 
-	setDirection(direction){
-		return this.direction = direction;
-	}
+  setDirection(direction){
+    return this.direction = direction;
+  }
 }
 
 class SaddleModel {
@@ -54,71 +60,71 @@ class SaddleModel {
 }
 
 class BrakeModel {
-	constructor(){
-		this.isEnabled = true;
-	}
+  constructor(){
+    this.isEnabled = true;
+  }
 
-	enable(){
-		return this.isEnabled = true;
-	}
+  enable(){
+    return this.isEnabled = true;
+  }
 
-	disable(){
-		return this.isEnabled = false;
-	}
+  disable(){
+    return this.isEnabled = false;
+  }
 }
 
 class BellModel {
-	constructor(){
-		this.isRang = false;
-	}
+  constructor(){
+    this.isRang = false;
+  }
 
-	ring(){
-		return this.isRang = true;
-	}
+  ring(){
+    return this.isRang = true;
+  }
 }
 
 class BikeFacade{
-	constructor(){
-		const chain = this.chain = new ChainModel();
+  constructor(){
+    const chain = this.chain = new ChainModel();
 
-		chain.wheels = this.wheels = [];
-		this.wheels.push(new WheelModel());
-		this.wheels.push(new WheelModel());
-		
-		chain.pedals = this.pedals = [];
-		this.pedals.push(new PedalModel(chain));
-		this.pedals.push(new PedalModel(chain));
+    chain.wheels = this.wheels = [];
+    this.wheels.push(new WheelModel());
+    this.wheels.push(new WheelModel());
 
-		this.brakes = [];
-		this.brakes.push(new BrakeModel());
-		this.brakes.push(new BrakeModel());
+    chain.pedals = this.pedals = [];
+    this.pedals.push(new PedalModel(chain));
+    this.pedals.push(new PedalModel(chain));
 
-		this.rudder = new RudderModel();
-		this.saddle = new SaddleModel();
-		this.bell = new BellModel();
-	}
+    this.brakes = [];
+    this.brakes.push(new BrakeModel());
+    this.brakes.push(new BrakeModel());
 
-	go(direction, twirls){
-		this.brakes.forEach(brake => {
-			brake.disable();
-		});
+    this.rudder = new RudderModel();
+    this.saddle = new SaddleModel();
+    this.bell = new BellModel();
+  }
 
-		this.rudder.setDirection(direction);
+  go(direction, twirls){
+    this.brakes.forEach(brake => {
+      brake.disable();
+    });
 
-		this.bell.ring();
+    this.rudder.setDirection(direction);
 
-		this.pedals[0].twirl(twirls);
-		this.pedals[1].twirls = twirls;
-	}
+    this.bell.ring();
+
+    this.pedals[0].twirl(twirls);
+    this.pedals[1].twirls = twirls;
+  }
 }
 
 module.exports = {
-	BikeFacade,
-	BellModel,
-	BrakeModel,
-	SaddleModel,
-	RudderModel,
-	PedalModel,
-	ChainModel,
-	WheelModel
+  BikeFacade,
+  BellModel,
+  BrakeModel,
+  SaddleModel,
+  RudderModel,
+  PedalModel,
+  ChainModel,
+  WheelModel
 };

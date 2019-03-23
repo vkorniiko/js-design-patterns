@@ -1,83 +1,89 @@
+"use strict";
+
 class RocketContext {
-	constructor(){
-		this.state = new RocketStandingState();
-	}
+  constructor(){
+    this.state = new RocketStandingState();
+  }
 
-	flyUp(){
-		this.state.flyUp(this);
-	}
+  flyUp(){
+    this.state.flyUp(this);
+  }
 
-	fly(){
-		this.state.fly(this);
-	}
+  fly(){
+    this.state.fly(this);
+  }
 
-	land(){
-		this.state.land(this);
-	}
+  land(){
+    this.state.land(this);
+  }
 
-	getFuelQuantity(){
-		return this.state.fuelQuantity;
-	}
+  getFuelQuantity(){
+    return this.state.fuelQuantity;
+  }
 }
 
-class RocketBaseState { 
-	constructor(fuelQuantity){
-		this.fuelQuantity = fuelQuantity;
-	}
+class BaseRocketState { 
+  constructor(fuelQuantity){
+    if(new.target === BaseRocketState)
+      throw new Error("Can't instantiate abstract type.");
 
-	flyUp(){
-		throw new Error("Not implemented.");
-	}
+    this.fuelQuantity = fuelQuantity;
+  }
 
-	fly(){
-		throw new Error("Not implemented.");
-	}
+  flyUp(){
+    throw new Error("Not implemented.");
+  }
 
-	land(){
-		throw new Error("Not implemented.");
-	}
+  fly(){
+    throw new Error("Not implemented.");
+  }
+
+  land(){
+    throw new Error("Not implemented.");
+  }
 }
 
-class RocketStandingState extends RocketBaseState {
-	constructor(){
-		super("full");
-	}
+class RocketStandingState extends BaseRocketState {
+  constructor(){
+    super("full");
+  }
 
-	flyUp(context){
-		context.state = new RocketFlyingUpState();
-	}
+  flyUp(context){
+    context.state = new RocketFlyingUpState();
+  }
 }
 
-class RocketFlyingUpState extends RocketBaseState {
-	constructor(){
-		super("partiallyFull");
-	}
+class RocketFlyingUpState extends BaseRocketState {
+  constructor(){
+    super("partiallyFull");
+  }
 
-	fly(context){
-		context.state = new RocketFlyingState();
-	}
+  fly(context){
+    context.state = new RocketFlyingState();
+  }
 }
 
-class RocketFlyingState extends RocketBaseState {
-	constructor(){
-		super("partiallyEmpty");
-	}
+class RocketFlyingState extends BaseRocketState {
+  constructor(){
+    super("partiallyEmpty");
+  }
 
-	land(context){
-		context.state = new RocketLandingState();
-	}
+  land(context){
+    context.state = new RocketLandingState();
+  }
 }
 
-class RocketLandingState extends RocketBaseState {
-	constructor(){
-		super("empty");
-	}
+class RocketLandingState extends BaseRocketState {
+  constructor(){
+    super("empty");
+  }
 }
 
 module.exports = {
-	RocketContext,
-	RocketStandingState,
-	RocketFlyingUpState,
-	RocketFlyingState,
-	RocketLandingState
+  BaseRocketState,
+  RocketContext,
+  RocketStandingState,
+  RocketFlyingUpState,
+  RocketFlyingState,
+  RocketLandingState
 };

@@ -1,93 +1,94 @@
+"use strict";
 class BaseCommand{
-	constructor(){
-		if(new.target === BaseCommand)
-			throw new Error("Can't instantiate abstract type.");
+  constructor(){
+    if(new.target === BaseCommand)
+      throw new Error("Can't instantiate abstract type.");
 
-		this.permissionGranted = false;
-	}
+    this.permissionGranted = false;
+  }
 
-	checkPermission(){
-		return this.permissionGranted;
-	}
+  checkPermission(){
+    return this.permissionGranted;
+  }
 
-	execute(){
-		throw new Error("Not implemented.");
-	}
+  execute(){
+    throw new Error("Not implemented.");
+  }
 }
 
 class ReminderCommand extends BaseCommand {
-	constructor(executor){
-		if(!(executor instanceof TaskExecutor))
-			throw new Error("Invalid argument 'executor'.");
+  constructor(executor){
+    if(!(executor instanceof TaskExecutor))
+      throw new Error("Invalid argument 'executor'.");
 
-		super();
-		this.executor = executor;
-	}
+    super();
+    this.executor = executor;
+  }
 
-	execute(){
-		var result = false;
+  execute(){
+    let result = false;
 
-		if(this.checkPermission()){
-			this.executor.runAction();
-			result = true;
-		}
+    if(this.checkPermission()){
+      this.executor.runAction();
+      result = true;
+    }
 
-		return result;
-	}
+    return result;
+  }
 
-	cancel(){
-		if(this.executor.runTime)
-			this.executor.runTime = null;
-	}
+  cancel(){
+    if(this.executor.runTime)
+      this.executor.runTime = null;
+  }
 }
 
 class CalendarInitiator{
-	constructor(){
-		this.command = null;
-	}
+  constructor(){
+    this.command = null;
+  }
 
-	invoke(){
-		if(!(this.command instanceof BaseCommand))
-			throw new Error("Invalid property 'command'.");
+  invoke(){
+    if(!(this.command instanceof BaseCommand))
+      throw new Error("Invalid property 'command'.");
 
-		if(!this.command.execute())
-			this.command.cancel();
-	}
+    if(!this.command.execute())
+      this.command.cancel();
+  }
 }
 
 class TaskExecutor{
-	constructor(){
-		this.runTime = null;
-	}
+  constructor(){
+    this.runTime = null;
+  }
 
-	runAction(){
-		return this.runTime = new Date();
-	}
+  runAction(){
+    return this.runTime = new Date();
+  }
 }
 
 class SchedulerClient {
-	constructor(){
-		this.commands = [];
-	}
+  constructor(){
+    this.commands = [];
+  }
 
-	createReminderCommand(executor, initiator){
-		if(!(executor instanceof TaskExecutor))
-			throw new Error("Invalid argument 'executor'.");
+  createReminderCommand(executor, initiator){
+    if(!(executor instanceof TaskExecutor))
+      throw new Error("Invalid argument 'executor'.");
 
-		if(!(initiator instanceof CalendarInitiator))
-			throw new Error("Invalid argument 'initiator'.");
+    if(!(initiator instanceof CalendarInitiator))
+      throw new Error("Invalid argument 'initiator'.");
 
-		var reminderCommand = new ReminderCommand(executor);
-		reminderCommand.permissionGranted = true;
-		initiator.command = reminderCommand;
-		this.commands.push(reminderCommand);
-	}
+    const reminderCommand = new ReminderCommand(executor);
+    reminderCommand.permissionGranted = true;
+    initiator.command = reminderCommand;
+    this.commands.push(reminderCommand);
+  }
 }
 
 module.exports = {
-	CalendarInitiator,
-	BaseCommand,
-	ReminderCommand,
-	TaskExecutor,
-	SchedulerClient
+  CalendarInitiator,
+  BaseCommand,
+  ReminderCommand,
+  TaskExecutor,
+  SchedulerClient
 };

@@ -1,70 +1,76 @@
+"use strict";
+
 class BaseImageFlyweight {
-	constructor(){
-		if(new.target === BaseImageFlyweight)
-			throw new Error("Can't instantiate abstract type.");
-	}
+  constructor(){
+    if(new.target === BaseImageFlyweight)
+      throw new Error("Can't instantiate abstract type.");
+  }
 
-	draw(context){
-		if(!this.imageData)
-			throw new Error("Invalid property 'imageData'.");
+  draw(context){
+    if(this.imageData == null)
+      throw new Error("Invalid property 'imageData'.");
 
-		context.drawImage(this.imageData);
-	}
+    context.drawImage(this.imageData);
+  }
 }
 
 class IconFlyweight extends BaseImageFlyweight {
-	constructor(imageData){
-		super();
-		this.imageData = imageData;
-	}
+  constructor(imageData){
+    super();
+    this.imageData = imageData;
+  }
 
-	draw(context, x, y){
-		context.moveTo(x, y);
-		super.draw(context);
-	}
+  draw(context, x, y){
+    context.moveTo(x, y);
+    super.draw(context);
+  }
 }
 
 class IconFlyweightFactory {
-	constructor(loader){
-		this.flyweights = new Map();
-		this.loader = loader;
-	}
+  constructor(loader){
+    this.flyweights = new Map();
+    this.loader = loader;
+  }
 
-	getFlyweight(key){
-		var result, imageData;
+  getFlyweight(key){
+    let result, imageData;
 
-		if(this.flyweights.has(key))
-			result = this.flyweights.get(key);
-		else {
-			imageData = this.loader.loadImageData(key);
-			result = new IconFlyweight(imageData);
-			this.flyweights.set(key, result);
-		}
+    if(this.flyweights.has(key))
+      result = this.flyweights.get(key);
+    else {
+      imageData = this.loader.loadImageData(key);
+      result = new IconFlyweight(imageData);
+      this.flyweights.set(key, result);
+    }
 
-		return result;
-	}
+    return result;
+  }
 }
 
 class FlyweightClient {
-	constructor(menuItemsEnum){
-		this.menuItemsEnum = menuItemsEnum;
-	}
+  constructor(menuItemsEnum){
+    this.menuItemsEnum = menuItemsEnum;
+  }
 
-	drawMenu(flyweightFactory, menuDrawingContext){
-		this.menuItemsEnum.forEach(menuItemDescriptorObject => {
-			const menuImageFlyweight = flyweightFactory.getFlyweight(menuItemDescriptorObject.key);
+  drawMenu(flyweightFactory, menuDrawingContext){
+    this.menuItemsEnum.forEach(descriptorObject => {
+      const flyweight = flyweightFactory.getFlyweight(descriptorObject.key);
 
-			menuImageFlyweight.draw(menuDrawingContext, menuItemDescriptorObject.x, menuItemDescriptorObject.y);
-		});
+      flyweight.draw(menuDrawingContext, descriptorObject.x, 
+        descriptorObject.y);
+    });
 
-		const specificIconFlyweight = new IconFlyweight("specificImageData");
-		specificIconFlyweight.draw(menuDrawingContext, 96, 0);
-	}
+    const specificX = 96,
+      specificY = 0,
+      specificIconFlyweight = new IconFlyweight("specificImageData");
+
+    specificIconFlyweight.draw(menuDrawingContext, specificX, specificY);
+  }
 }
 
 module.exports = {
-	FlyweightClient,
-	IconFlyweightFactory,
-	IconFlyweight,
-	BaseImageFlyweight
+  BaseImageFlyweight,
+  FlyweightClient,
+  IconFlyweightFactory,
+  IconFlyweight
 };

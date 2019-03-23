@@ -1,116 +1,125 @@
+"use strict";
 class BaseExpressionComponent {
-	constructor(){
-		if(new.target === BaseExpressionComponent)
-			throw new Error("Can't instantiate abstract type.");
+  constructor(){
+    if(new.target === BaseExpressionComponent)
+      throw new Error("Can't instantiate abstract type.");
 
-		this.parent = null;
-	}
+    this.parent = null;
+  }
 
-	toString(){
-		throw new Error("Not implemented.");
-	}
+  toString(){
+    throw new Error("Not implemented.");
+  }
 
-	add(){
-		throw new Error("Not implemented.");
-	}
+  add(){
+    throw new Error("Not implemented.");
+  }
 
-	remove(){
-		throw new Error("Not implemented.");
-	}
+  remove(){
+    throw new Error("Not implemented.");
+  }
 
-	getChild(idx){
-		throw new Error("Not implemented.");
-	}
+  getChild(idx){ //eslint-disable-line no-unused-vars
+    throw new Error("Not implemented.");
+  }
 }
 
 class BaseOperandLeaf extends BaseExpressionComponent {
-	constructor(value){
-		super();
-		this.value = value;
-	}
+  constructor(value){
+    if(new.target === BaseOperandLeaf)
+      throw new Error("Can't instantiate abstract type.");
+
+    super();
+    this.value = value;
+  }
 }
 
 class NumberOperandLeaf extends BaseOperandLeaf {
-	constructor(value){
-		if(({}).toString.call(value) !== "[object Number]")
-			throw new Error("Invalid argument 'value'.");
+  constructor(value){
+    if(({}).toString.call(value) !== "[object Number]")
+      throw new Error("Invalid argument 'value'.");
 
-		super(value);
-	}
+    super(value);
+  }
 
-	toString(){
-		return this.value.toString();
-	}
+  toString(){
+    return this.value.toString();
+  }
 }
 
 class BaseOperationComposite extends BaseExpressionComponent {
-	constructor(){
-		if(new.target === BaseOperationComposite)
-			throw new Error("Can't instantiate abstract type.");
+  constructor(){
+    if(new.target === BaseOperationComposite)
+      throw new Error("Can't instantiate abstract type.");
 
-		super();
-		this.children = [];
-	}
+    super();
+    this.children = [];
+  }
 
-	add(component){
-		component.parent = this;
-		this.children.push(component);
-	}
+  add(component){
+    component.parent = this;
+    this.children.push(component);
+  }
 
-	remove(component){
-		if(this.children.length === 0)
-			throw new Error("Invalid operation.");
+  remove(component){
+    if(this.children.length === 0)
+      throw new Error("Invalid operation.");
 
-		const idx = this.children.indexOf(component);
+    const idx = this.children.indexOf(component);
 
-		if(idx === -1)
-			throw new Error("Can't find component.");
+    if(idx === -1)
+      throw new Error("Invalid operation.");
 
-		component.parent = null;
-		this.children.splice(idx, 1);
-	}
+    component.parent = null;
+    this.children.splice(idx, 1);
+  }
 
-	getChild(idx){
-		return this.children[idx];
-	}
+  getChild(idx){
+    return this.children[idx];
+  }
 }
 
 const operationTypes = { add : "+", remove: "-", divide: "/", multiply: "*" };
 class BinaryOperationComposite extends BaseOperationComposite {
-	static get operationTypes() {
-		return operationTypes;
-	}
+  static get operationTypes() {
+    return operationTypes;
+  }
 
-	constructor(operationType){
-		super();
-		this.operationType = operationType;
-	}
+  constructor(operationType){
+    super();
+    this.operationType = operationType;
+  }
 
-	add(component){
-		if(this.children.length >= 2)
-			throw new Error("Invalid operation.");
+  add(component){
+    const maxChildren = 2;
 
-		super.add(component);
-	}
+    if(this.children.length >= maxChildren)
+      throw new Error("Invalid operation.");
 
-	toString(){
-		const leftOperand = this.getChild(0);
+    super.add(component);
+  }
 
-		if(leftOperand == null)
-			throw new Error('Invalid operation.');
+  toString(){
+    const leftOperand = this.getChild(0);
 
-		const rightOperand = this.getChild(1);
+    if(leftOperand == null)
+      throw new Error("Invalid operation.");
 
-		if(rightOperand == null)
-			throw new Error('Invalid operation.');
+    const rightOperand = this.getChild(1);
 
-		const operation = this.operationType;
+    if(rightOperand == null)
+      throw new Error("Invalid operation.");
 
-		return `${leftOperand}${operation}${rightOperand}`;
-	}
+    const operation = this.operationType;
+
+    return `${leftOperand}${operation}${rightOperand}`;
+  }
 }
 
 module.exports = {
-	NumberOperandLeaf,
-	BinaryOperationComposite
+  BaseExpressionComponent,
+  BaseOperandLeaf,
+  BaseOperationComposite,
+  NumberOperandLeaf,
+  BinaryOperationComposite
 };
