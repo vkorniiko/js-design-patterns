@@ -2,9 +2,13 @@
 
 const requireHelper = require("./_require_helper");
 const testHelper = require("./_test_helper");
-const { HelloMediator, ButtonColleague, HelloButtonColleague, 
-  SaveButtonColleague, BaseMediator, BaseColleague,
-  TextFieldColleague } = requireHelper("../patterns/mediator/mediator");
+const HelloMediator = requireHelper("../patterns/mediator/HelloMediator"), 
+  ButtonColleague = requireHelper("../patterns/mediator/ButtonColleague"), 
+  HelloButtonColleague = requireHelper("../patterns/mediator/HelloButtonColleague"), 
+  SaveButtonColleague = requireHelper("../patterns/mediator/SaveButtonColleague"), 
+  BaseMediator = requireHelper("../patterns/mediator/BaseMediator"), 
+  BaseColleague = requireHelper("../patterns/mediator/BaseColleague"),
+  TextFieldColleague = requireHelper("../patterns/mediator/TextFieldColleague");
 
 QUnit.test("Check abstract types", (assert) => {
   testHelper.checkAbstract(BaseMediator, assert);

@@ -1,7 +1,7 @@
 "use strict";
 
 const requireHelper = require("./_require_helper");
-const { ApplicationSingleton } = requireHelper("../patterns/singleton/singleton");
+const ApplicationSingleton = requireHelper("../patterns/singleton/ApplicationSingleton");
 
 QUnit.test("ApplicationSingleton.instance()", (assert) => {
   const singleton1 = new ApplicationSingleton();

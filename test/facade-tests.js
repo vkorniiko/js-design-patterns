@@ -1,8 +1,13 @@
 "use strict";
 
 const requireHelper = require("./_require_helper");
-const { WheelModel, PedalModel, ChainModel, RudderModel, BrakeModel, 
-  BellModel, BikeFacade } = requireHelper("../patterns/facade/facade");
+const WheelModel = requireHelper("../patterns/facade/WheelModel"), 
+      PedalModel = requireHelper("../patterns/facade/PedalModel"), 
+      ChainModel = requireHelper("../patterns/facade/ChainModel"), 
+      RudderModel = requireHelper("../patterns/facade/RudderModel"), 
+      BrakeModel = requireHelper("../patterns/facade/BrakeModel"), 
+      BellModel = requireHelper("../patterns/facade/BellModel"), 
+      BikeFacade = requireHelper("../patterns/facade/BikeFacade");
 
 QUnit.test("WheelModel.prototype.rotate(rotations)", (assert) => {
   const wheelModel = new WheelModel();

@@ -2,7 +2,8 @@
 
 const requireHelper = require("./_require_helper");
 const testHelper = require("./_test_helper");
-const { BaseHouse, House } = requireHelper("../patterns/templateMethod/templateMethod");
+const BaseHouse = requireHelper("../patterns/templateMethod/BaseHouse"), 
+      House = requireHelper("../patterns/templateMethod/House");
 
 QUnit.test("Check abstract types", (assert) => {
   testHelper.checkAbstract(BaseHouse, assert);

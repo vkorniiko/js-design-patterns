@@ -2,8 +2,11 @@
 
 const requireHelper = require("./_require_helper");
 const testHelper = require("./_test_helper");
-const { NumberOperandLeaf, BaseExpressionComponent, BaseOperandLeaf, BaseOperationComposite,
-  BinaryOperationComposite } = requireHelper("../patterns/composite/composite");
+const NumberOperandLeaf = requireHelper("../patterns/composite/NumberOperandLeaf"),
+      BaseExpressionComponent = requireHelper("../patterns/composite/BaseExpressionComponent"),
+      BaseOperandLeaf = requireHelper("../patterns/composite/BaseOperandLeaf"),
+      BaseOperationComposite = requireHelper("../patterns/composite/BaseOperationComposite"),
+      BinaryOperationComposite = requireHelper("../patterns/composite/BinaryOperationComposite");
 
 QUnit.test("Check abstract types", (assert) => {
   testHelper.checkAbstract(BaseExpressionComponent, assert);

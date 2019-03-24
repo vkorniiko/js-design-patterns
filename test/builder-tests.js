@@ -2,8 +2,11 @@
 
 const requireHelper = require("./_require_helper");
 const testHelper = require("./_test_helper");
-const { ArrayDirector, ListBuilder, ListNode, BaseBuilder, 
-  List } = requireHelper("../patterns/builder/builder");
+const ArrayDirector = requireHelper("../patterns/builder/ArrayDirector"),
+  ListBuilder = requireHelper("../patterns/builder/ListBuilder"),
+  ListNode = requireHelper("../patterns/builder/ListNode"),
+  BaseBuilder = requireHelper("../patterns/builder/BaseBuilder"),
+  List = requireHelper("../patterns/builder/List");
 
 QUnit.test("Check abstract types", (assert) => {
   testHelper.checkAbstract(BaseBuilder, assert);

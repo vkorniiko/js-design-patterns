@@ -2,8 +2,10 @@
 
 const requireHelper = require("./_require_helper");
 const testHelper = require("./_test_helper");
-const { LinearSearchStrategy, BinarySearchStrategy, BaseSearchStrategy,
-  SearchContext } = requireHelper("../patterns/strategy/strategy");
+const LinearSearchStrategy = requireHelper("../patterns/strategy/LinearSearchStrategy"),
+      BinarySearchStrategy = requireHelper("../patterns/strategy/BinarySearchStrategy"),
+      BaseSearchStrategy = requireHelper("../patterns/strategy/BaseSearchStrategy"),
+      SearchContext = requireHelper("../patterns/strategy/SearchContext");
 
 QUnit.test("Check abstract types", (assert) => {
   testHelper.checkAbstract(BaseSearchStrategy, assert);

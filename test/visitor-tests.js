@@ -2,9 +2,16 @@
 
 const requireHelper = require("./_require_helper");
 const testHelper = require("./_test_helper");
-const { BallsManagerClient, BallsCollectionData, BaseballBall, BaseBall, 
-  FootballBall, KickBallVisitor, ThrowBallVisitor, ReturnBallVisitor, BaseBallVisitor,
-  GetStatisticVisitor } = requireHelper("../patterns/visitor/visitor");
+const BallsManagerClient = requireHelper("../patterns/visitor/BallsManagerClient"),
+      BallsCollectionData = requireHelper("../patterns/visitor/BallsCollectionData"),
+      BaseballBall = requireHelper("../patterns/visitor/BaseballBall"),
+      BaseBall = requireHelper("../patterns/visitor/BaseBall"),
+      FootballBall = requireHelper("../patterns/visitor/FootballBall"),
+      KickBallVisitor = requireHelper("../patterns/visitor/KickBallVisitor"),
+      ThrowBallVisitor = requireHelper("../patterns/visitor/ThrowBallVisitor"),
+      ReturnBallVisitor = requireHelper("../patterns/visitor/ReturnBallVisitor"),
+      BaseBallVisitor = requireHelper("../patterns/visitor/BaseBallVisitor"),
+      GetStatisticVisitor = requireHelper("../patterns/visitor/GetStatisticVisitor");
 
 QUnit.test("Check invalid arguments", (assert) => {
   testHelper.checkMethodInvalidArguments(

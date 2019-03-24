@@ -2,8 +2,10 @@
 
 const requireHelper = require("./_require_helper");
 const testHelper = require("./_test_helper");
-const { CarSubject, VehicleProxy, BaseVehicleSubject,
-  HumanClient } = requireHelper("../patterns/proxy/proxy");
+const CarSubject = requireHelper("../patterns/proxy/CarSubject"),
+      VehicleProxy = requireHelper("../patterns/proxy/VehicleProxy"),
+      BaseVehicleSubject = requireHelper("../patterns/proxy/BaseVehicleSubject"),
+      HumanClient = requireHelper("../patterns/proxy/HumanClient");
 
 QUnit.test("Check abstract types", (assert) => {
   testHelper.checkAbstract(BaseVehicleSubject, assert);

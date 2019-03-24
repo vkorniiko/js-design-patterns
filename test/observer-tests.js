@@ -2,8 +2,10 @@
 
 const requireHelper = require("./_require_helper");
 const testHelper = require("./_test_helper");
-const { TimeoutEmitter, BaseEmitter, BaseObserver,
-  LoggerObserver } = requireHelper("../patterns/observer/observer");
+const TimeoutEmitter = requireHelper("../patterns/observer/TimeoutEmitter"),
+      BaseEmitter = requireHelper("../patterns/observer/BaseEmitter"),
+      BaseObserver = requireHelper("../patterns/observer/BaseObserver"),
+      LoggerObserver = requireHelper("../patterns/observer/LoggerObserver");
 
 QUnit.test("Check abstract types", (assert) => {
   testHelper.checkAbstract(BaseEmitter, assert);

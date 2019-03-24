@@ -2,10 +2,16 @@
 
 const requireHelper = require("./_require_helper");
 const testHelper = require("./_test_helper");
-const { List, ListIterator, ES6List, ES6ListIterator, BaseItemsStorage, 
-  BaseIterator, Client } = requireHelper("../patterns/iterator/iterator");
-const { ListBuilder, ArrayDirector, 
-  ListNode } = requireHelper("../patterns/builder/builder");
+const ListBuilder = requireHelper("../patterns/builder/ListBuilder"),
+  ArrayDirector = requireHelper("../patterns/builder/ArrayDirector"), 
+  ListNode = requireHelper("../patterns/builder/ListNode"),
+  BaseItemsStorage = requireHelper("../patterns/iterator/BaseItemsStorage"),
+  BaseIterator = requireHelper("../patterns/iterator/BaseIterator"),
+  List = requireHelper("../patterns/iterator/List"),
+  ES6List = requireHelper("../patterns/iterator/ES6List"),
+  ListIterator = requireHelper("../patterns/iterator/ListIterator"),
+  ES6ListIterator = requireHelper("../patterns/iterator/ES6ListIterator"),
+  Client = requireHelper("../patterns/iterator/Client");
 
 QUnit.test("Check abstract types", (assert) => {
   testHelper.checkAbstract(BaseItemsStorage, assert);

@@ -2,9 +2,12 @@
 
 const requireHelper = require("./_require_helper");
 const testHelper = require("./_test_helper");
-const { DB1Implementor, DB2Implementor, ORMDescriptor,
-  BaseDBImplementor, BaseORMDescriptor,
-  ORMDebugDescriptor } = requireHelper("../patterns/bridge/bridge");
+const DB1Implementor = requireHelper("../patterns/bridge/DB1Implementor"), 
+      DB2Implementor = requireHelper("../patterns/bridge/DB2Implementor"), 
+      ORMDescriptor = requireHelper("../patterns/bridge/ORMDescriptor"),
+      BaseDBImplementor = requireHelper("../patterns/bridge/BaseDBImplementor"), 
+      BaseORMDescriptor = requireHelper("../patterns/bridge/BaseORMDescriptor"),
+      ORMDebugDescriptor = requireHelper("../patterns/bridge/ORMDebugDescriptor");
   
 QUnit.test("Check abstract types", (assert) => {
   testHelper.checkAbstract(BaseDBImplementor, assert);

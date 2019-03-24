@@ -2,8 +2,11 @@
 
 const requireHelper = require("./_require_helper");
 const testHelper = require("./_test_helper");
-const { AreaCalculatorAdaptee, Client, NumberAreaCalculatorAdapter, BaseCalculatorAdapter,
-  StringAreaCalculatorAdapter } = requireHelper("../patterns/adapter/adapter");
+const AreaCalculatorAdaptee = requireHelper("../patterns/adapter/AreaCalculatorAdaptee"),
+      Client = requireHelper("../patterns/adapter/Client"),
+      NumberAreaCalculatorAdapter = requireHelper("../patterns/adapter/NumberAreaCalculatorAdapter"),
+      BaseCalculatorAdapter = requireHelper("../patterns/adapter/BaseCalculatorAdapter"),
+      StringAreaCalculatorAdapter = requireHelper("../patterns/adapter/StringAreaCalculatorAdapter");
 
 QUnit.test("Check abstract types", (assert) => {
   testHelper.checkAbstract(BaseCalculatorAdapter, assert);

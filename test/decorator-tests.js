@@ -2,8 +2,9 @@
 
 const requireHelper = require("./_require_helper");
 const testHelper = require("./_test_helper");
-const { AnimalComponent, BaseAnimalDecorator,
-  PigAnimalDecorator } = requireHelper("../patterns/decorator/decorator");
+const AnimalComponent = requireHelper("../patterns/decorator/AnimalComponent"),
+      BaseAnimalDecorator = requireHelper("../patterns/decorator/BaseAnimalDecorator"),
+      PigAnimalDecorator = requireHelper("../patterns/decorator/PigAnimalDecorator");
 
 QUnit.test("Check abstract types", (assert) => {
   testHelper.checkAbstract(BaseAnimalDecorator, assert);

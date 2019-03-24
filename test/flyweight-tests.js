@@ -2,8 +2,10 @@
 
 const requireHelper = require("./_require_helper");
 const testHelper = require("./_test_helper");
-const { IconFlyweight, IconFlyweightFactory, BaseImageFlyweight,
-  FlyweightClient } = requireHelper("../patterns/flyweight/flyweight");
+const IconFlyweight = requireHelper("../patterns/flyweight/IconFlyweight"),
+      IconFlyweightFactory = requireHelper("../patterns/flyweight/IconFlyweightFactory"),
+      BaseImageFlyweight = requireHelper("../patterns/flyweight/BaseImageFlyweight"),
+      FlyweightClient = requireHelper("../patterns/flyweight/FlyweightClient");
 
 QUnit.test("Check abstract types", (assert) => {
   testHelper.checkAbstract(BaseImageFlyweight, assert);

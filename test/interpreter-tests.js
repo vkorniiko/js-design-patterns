@@ -2,9 +2,14 @@
 
 const requireHelper = require("./_require_helper");
 const testHelper = require("./_test_helper");
-const { VariableExpression, ConstantExpression, AddExpression, 
-  SubtractExpression, MultiplyExpression, BaseExpression, BaseOperationExpression,
-  DivideExpression } = requireHelper("../patterns/interpreter/interpreter");
+const VariableExpression = requireHelper("../patterns/interpreter/VariableExpression"), 
+      ConstantExpression = requireHelper("../patterns/interpreter/ConstantExpression"), 
+      AddExpression = requireHelper("../patterns/interpreter/AddExpression"), 
+      SubtractExpression = requireHelper("../patterns/interpreter/SubtractExpression"), 
+      MultiplyExpression = requireHelper("../patterns/interpreter/MultiplyExpression"), 
+      BaseExpression = requireHelper("../patterns/interpreter/BaseExpression"), 
+      BaseOperationExpression = requireHelper("../patterns/interpreter/BaseOperationExpression"),
+      DivideExpression = requireHelper("../patterns/interpreter/DivideExpression");
 
 QUnit.test("Check abstract types", (assert) => {
   testHelper.checkAbstract(BaseExpression, assert);

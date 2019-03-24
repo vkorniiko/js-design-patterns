@@ -2,9 +2,17 @@
 
 const requireHelper = require("./_require_helper");
 const testHelper = require("./_test_helper");
-const { FactoryClient, GMOProductFactory, ClassicProductFactory, BasePotato, 
-  BaseTomato, BaseProductFactory, GMOPotato, GMOTomato, ClassicPotato, ClassicTomato, 
-  BaseProduct } = requireHelper("../patterns/abstractFactory/abstractFactory");
+const FactoryClient = requireHelper("../patterns/abstractFactory/FactoryClient"); 
+const GMOProductFactory = requireHelper("../patterns/abstractFactory/GMOProductFactory"); 
+const ClassicProductFactory = requireHelper("../patterns/abstractFactory/ClassicProductFactory"); 
+const BasePotato = requireHelper("../patterns/abstractFactory/BasePotato"); 
+const BaseTomato = requireHelper("../patterns/abstractFactory/BaseTomato"); 
+const BaseProductFactory = requireHelper("../patterns/abstractFactory/BaseProductFactory"); 
+const GMOPotato = requireHelper("../patterns/abstractFactory/GMOPotato"); 
+const GMOTomato = requireHelper("../patterns/abstractFactory/GMOTomato"); 
+const ClassicPotato = requireHelper("../patterns/abstractFactory/ClassicPotato"); 
+const ClassicTomato = requireHelper("../patterns/abstractFactory/ClassicTomato"); 
+const BaseProduct = requireHelper("../patterns/abstractFactory/BaseProduct");
 
 QUnit.test("Check abstract types", (assert) => {
 	testHelper.checkAbstract(BaseProductFactory, assert);

@@ -2,8 +2,9 @@
 
 const requireHelper = require("./_require_helper");
 const testHelper = require("./_test_helper");
-const { Client, Character, 
-  BasePrototype } = requireHelper("../patterns/prototype/prototype");
+const Client = requireHelper("../patterns/prototype/Client"),
+      Character = requireHelper("../patterns/prototype/Character"),
+      BasePrototype = requireHelper("../patterns/prototype/BasePrototype");
 
 QUnit.test("Check abstract types", (assert) => {
   testHelper.checkAbstract(BasePrototype, assert);

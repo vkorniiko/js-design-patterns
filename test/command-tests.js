@@ -2,8 +2,11 @@
 
 const requireHelper = require("./_require_helper");
 const testHelper = require("./_test_helper");
-const { ReminderCommand, TaskExecutor, CalendarInitiator, BaseCommand,
-  SchedulerClient } = requireHelper("../patterns/command/command");
+const ReminderCommand = requireHelper("../patterns/command/ReminderCommand"),
+  TaskExecutor = requireHelper("../patterns/command/TaskExecutor"),
+  CalendarInitiator = requireHelper("../patterns/command/CalendarInitiator"),
+  BaseCommand = requireHelper("../patterns/command/BaseCommand"),
+  SchedulerClient = requireHelper("../patterns/command/SchedulerClient");
 
 QUnit.test("Check abstract types", (assert) => {
   testHelper.checkAbstract(BaseCommand, assert);

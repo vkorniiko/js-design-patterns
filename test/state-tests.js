@@ -2,8 +2,12 @@
 
 const requireHelper = require("./_require_helper");
 const testHelper = require("./_test_helper");
-const { RocketContext, RocketLandingState, RocketFlyingState, RocketFlyingUpState, 
-  BaseRocketState, RocketStandingState } = requireHelper("../patterns/state/state");
+const RocketContext = requireHelper("../patterns/state/RocketContext"),
+      RocketLandingState = requireHelper("../patterns/state/RocketLandingState"),
+      RocketFlyingState = requireHelper("../patterns/state/RocketFlyingState"),
+      RocketFlyingUpState = requireHelper("../patterns/state/RocketFlyingUpState"),
+      BaseRocketState = requireHelper("../patterns/state/BaseRocketState"),
+      RocketStandingState = requireHelper("../patterns/state/RocketStandingState");
 
 QUnit.test("Check abstract types", (assert) => {
   testHelper.checkAbstract(BaseRocketState, assert);

@@ -2,8 +2,12 @@
 
 const requireHelper = require("./_require_helper");
 const testHelper = require("./_test_helper");
-const { DeleteIdHandler, UpdateDateHandler, AppendGUIDHandler, DataWrapper, BaseDataHandler,
-  Client } = requireHelper("../patterns/chainOfResponsibility/chainOfResponsibility");
+const DeleteIdHandler = requireHelper("../patterns/chainOfResponsibility/DeleteIdHandler"),
+  UpdateDateHandler = requireHelper("../patterns/chainOfResponsibility/UpdateDateHandler"),
+  AppendGUIDHandler = requireHelper("../patterns/chainOfResponsibility/AppendGUIDHandler"),
+  DataWrapper = requireHelper("../patterns/chainOfResponsibility/DataWrapper"),
+  BaseDataHandler = requireHelper("../patterns/chainOfResponsibility/BaseDataHandler"),
+  Client = requireHelper("../patterns/chainOfResponsibility/Client");
 
 QUnit.test("Check abstract types", (assert) => {
   testHelper.checkAbstract(BaseDataHandler, assert);

@@ -2,8 +2,9 @@
 
 const requireHelper = require("./_require_helper");
 const testHelper = require("./_test_helper");
-const { TreeOriginator, TreeMemento, 
-  MementoCaretaker } = requireHelper("../patterns/memento/memento");
+const TreeOriginator = requireHelper("../patterns/memento/TreeOriginator"),
+      TreeMemento = requireHelper("../patterns/memento/TreeMemento"),
+      MementoCaretaker = requireHelper("../patterns/memento/MementoCaretaker");
 
 QUnit.test("Check invalid arguments", (assert) => {
   testHelper.checkConstructorInvalidArguments(

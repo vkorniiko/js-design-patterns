@@ -2,8 +2,10 @@
 
 const requireHelper = require("./_require_helper");
 const testHelper = require("./_test_helper");
-const { Chair, BaseFurnitureProduct, BaseFurnitureShop,
-  ChairShop } = requireHelper("../patterns/factoryMethod/factoryMethod");
+const Chair = requireHelper("../patterns/factoryMethod/Chair"), 
+      BaseFurnitureProduct = requireHelper("../patterns/factoryMethod/BaseFurnitureProduct"), 
+      BaseFurnitureShop = requireHelper("../patterns/factoryMethod/BaseFurnitureShop"),
+      ChairShop = requireHelper("../patterns/factoryMethod/ChairShop");
 
 QUnit.test("Check abstract types", (assert) => {
   testHelper.checkAbstract(BaseFurnitureProduct, assert);
