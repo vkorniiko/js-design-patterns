@@ -8,7 +8,6 @@ Between abstract descriptor and abstract implementor the bridge provides relatio
 
 ![Bridge](bridge.png)
 
-## Code
+## Sample code
 
-* [Source code](bridge.js)
 * [Usage and tests](./../../test/bridge-tests.js)

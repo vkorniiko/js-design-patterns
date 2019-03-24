@@ -8,7 +8,6 @@ Defines one or more operations for certain class in separate class which can be 
 
 ![Visitor](visitor.png)
 
-## Code
+## Sample code
 
-* [Source code](visitor.js)
 * [Usage and tests](./../../test/visitor-tests.js)

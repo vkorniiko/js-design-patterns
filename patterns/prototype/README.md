@@ -8,7 +8,6 @@ Creates copies of object-prototype for further usage.
 
 ![Prototype](prototype.png)
 
-## Code
+## Sample code
 
-* [Source code](prototype.js)
 * [Usage and tests](./../../test/prototype-tests.js)

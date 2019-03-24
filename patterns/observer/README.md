@@ -8,7 +8,6 @@ Provides method of objects interaction, where an object-emitter contains referen
 
 ![Observer](observer.png)
 
-## Code
+## Sample code
 
-* [Source code](observer.js)
 * [Usage and tests](./../../test/observer-tests.js)

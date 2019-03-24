@@ -8,7 +8,6 @@ Stores the part of internal state which using for calculations according to exte
 
 ![Flyweight](flyweight.png)
 
-## Code
+## Sample code
 
-* [Source code](flyweight.js)
 * [Usage and tests](./../../test/flyweight-tests.js)

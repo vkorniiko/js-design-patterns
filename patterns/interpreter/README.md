@@ -8,7 +8,6 @@ Defines grammar and interpreter for language.
 
 ![Interpreter](interpreter.png)
 
-## Code
+## Sample code
 
-* [Source code](interpreter.js)
 * [Usage and tests](./../../test/interpreter-tests.js)

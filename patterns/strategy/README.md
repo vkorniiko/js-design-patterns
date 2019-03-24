@@ -8,7 +8,6 @@ Defines the subset of interchangeable algorithms for context. Choice of concrete
 
 ![Strategy](strategy.png)
 
-## Code
+## Sample code
 
-* [Source code](strategy.js)
 * [Usage and tests](./../../test/strategy-tests.js)

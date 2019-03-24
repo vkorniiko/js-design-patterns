@@ -8,7 +8,6 @@ Stores and restores internal state of object.
 
 ![Memento](memento.png)
 
-## Code
+## Sample code
 
-* [Source code](memento.js)
 * [Usage and tests](./../../test/memento-tests.js)

@@ -8,7 +8,6 @@ Separates the process of input data analysis from process of result building.
 
 ![Builder](builder.png)
 
-## Code
+## Sample code
 
-* [Source code](builder.js)
 * [Usage and tests](./../../test/builder-tests.js)

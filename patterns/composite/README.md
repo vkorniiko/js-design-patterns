@@ -8,7 +8,6 @@ Structures the objects into trees with one-to-many relationship.
 
 ![Composite](composite.png)
 
-## Code
+## Sample code
 
-* [Source code](composite.js)
 * [Usage and tests](./../../test/composite-tests.js)

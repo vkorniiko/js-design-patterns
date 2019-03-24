@@ -8,7 +8,6 @@ Main responsibility of proxy is managing access   of subject for client.
 
 ![Proxy](proxy.png)
 
-## Code
+## Sample code
 
-* [Source code](proxy.js)
 * [Usage and tests](./../../test/proxy-tests.js)

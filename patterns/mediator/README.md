@@ -8,7 +8,6 @@ Provides mechanism for interactions between loosely-coupled objects.
 
 ![Mediator](mediator.png)
 
-## Code
+## Sample code
 
-* [Source code](mediator.js)
 * [Usage and tests](./../../test/mediator-tests.js)

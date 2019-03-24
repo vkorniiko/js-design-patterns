@@ -8,7 +8,6 @@ Defines a subset of types for states. Objects of these types using in according 
 
 ![State](state.png)
 
-## Code
+## Sample code
 
-* [Source code](state.js)
 * [Usage and tests](./../../test/state-tests.js)

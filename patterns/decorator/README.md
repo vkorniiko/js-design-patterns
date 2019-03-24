@@ -8,7 +8,6 @@ Decorator attaches additional behavior to the current component. This is an alte
 
 ![Decorator](decorator.png)
 
-## Code
+## Sample code
 
-* [Source code](decorator.js)
 * [Usage and tests](./../../test/decorator-tests.js)

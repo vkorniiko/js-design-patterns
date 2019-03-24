@@ -8,7 +8,6 @@ Client doesn't know about type of an adaptee and works with adapter only. Main r
 
 ![Adapter](adapter.png)
 
-## Code
+## Sample code
 
-* [Source code](adapter.js)
 * [Usage and tests](./../../test/adapter-tests.js)

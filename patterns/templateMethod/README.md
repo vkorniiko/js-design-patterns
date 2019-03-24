@@ -8,7 +8,6 @@ Defines method in base type which operates the other methods, creating some sort
 
 ![Template Method](templateMethod.png)
 
-## Code
+## Sample code
 
-* [Source code](templateMethod.js)
 * [Usage and tests](./../../test/templateMethod-tests.js)

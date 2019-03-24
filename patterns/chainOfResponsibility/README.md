@@ -8,7 +8,6 @@ Provides chain of object-handlers that processes object-request in consecutive o
 
 ![Chain of Responsibility](chainOfResponsibility.png)
 
-## Code
+## Sample code
 
-* [Source code](chainOfResponsibility.js)
 * [Usage and tests](./../../test/chainOfResponsibility-tests.js)

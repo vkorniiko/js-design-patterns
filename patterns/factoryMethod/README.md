@@ -8,7 +8,6 @@ Defines abstract method for object creating. This method can be overriden in chi
 
 ![Factory Method](factoryMethod.png)
 
-## Code
+## Sample code
 
-* [Source code](factoryMethod.js)
 * [Usage and tests](./../../test/factoryMethod-tests.js)

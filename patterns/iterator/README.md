@@ -8,7 +8,6 @@ Allows access to the object-aggregate in consecutive order. Hides it internal re
 
 ![Iterator](iterator.png)
 
-## Code
+## Sample code
 
-* [Source code](iterator.js)
 * [Usage and tests](./../../test/iterator-tests.js)

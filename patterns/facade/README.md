@@ -8,7 +8,6 @@ Provides high-level interface of the subsystem. Objects in subsystem can interac
 
 ![Facade](facade.png)
 
-## Code
+## Sample code
 
-* [Source code](facade.js)
 * [Usage and tests](./../../test/facade-tests.js)

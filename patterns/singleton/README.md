@@ -8,7 +8,6 @@ Provides single object of underlying type.
 
 ![Singleton](singleton.png)
 
-## Code
+## Sample code
 
-* [Source code](singleton.js)
 * [Usage and tests](./../../test/singleton-tests.js)

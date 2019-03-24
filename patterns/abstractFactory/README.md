@@ -8,7 +8,6 @@ Provides abstract interface for creating objects that related.
 
 ![Abstract Factory](abstractFactory.png)
 
-## Code
+## Sample code
 
-* [Source code](abstractFactory.js)
 * [Usage and tests](./../../test/abstractFactory-tests.js)
