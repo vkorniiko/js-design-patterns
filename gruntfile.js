@@ -1,42 +1,44 @@
-const inspect = require('util').inspect,
-  EOL = require('os').EOL;
+"use strict";
+const inspect = require("util").inspect,
+  EOL = require("os").EOL;
 
 module.exports = function(grunt) {
   grunt.initConfig({
     eslint: {
       options: {
-        configFile: 'eslint.json',
+        configFile: "eslint.json"
       },
-      target: ['Gruntfile.js', 'patterns/*/*.js']
+      target: ["gruntfile.js", "patterns/*/*.js"]
     },
 
-    'qunit-node': {
+    "qunit-node": {
       options: {
         noglobals: true
       },
       test: {
-        src: ['test/*.js'],
+        src: ["test/*.js"],
         options: {
           setup: function (QUnit) {
-            QUnit.on('testEnd', function (testEnd) {
+            QUnit.on("testEnd", function (testEnd) {
               if(testEnd.status === "failed"){
                 testEnd.errors.forEach(function (error) {
                   const actual = inspect(error.actual),
                     expected = inspect(error.expected),
-                    reason = 'Actual value ' + actual + ' does not match expected value ' + expected,
-                    message = EOL + '>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>' + EOL +
-                          'Description: ' + error.message + EOL +
-                          'Reason: ' + reason + EOL +
-                          'Stack: ' + error.stack;
+                    reason = "Actual value " + actual + 
+                      " does not match expected value " + expected,
+                    message = EOL + ">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>" + EOL +
+                          "Description: " + error.message + EOL +
+                          "Reason: " + reason + EOL +
+                          "Stack: " + error.stack;
 
                   grunt.log.writeln();
                   grunt.log.errorlns(message);
                 });
 
-                grunt.log.write('F');
+                grunt.log.write("F");
               }
               else
-                grunt.log.write('.');
+                grunt.log.write(".");
             });
           }
         }
@@ -45,35 +47,52 @@ module.exports = function(grunt) {
 
     env: {
       coverage: {
-        APP_DIR_FOR_CODE_COVERAGE: './coverage/instrument/app/'
+        APP_DIR_FOR_CODE_COVERAGE: "./coverage/instrument/app/"
       }
     },
+
     instrument: {
-      files: 'patterns/**/*.js',
+      files: "patterns/**/*.js",
       options: {
         lazy: true,
-        basePath: 'test/coverage/instrument/'
+        basePath: "test/coverage/instrument/"
       }
     },
+
     storeCoverage: {
       options: {
-        dir: 'test/coverage/reports'
+        dir: "test/coverage/reports"
       }
     },
+
     makeReport: {
-      src: 'test/coverage/reports/**/*.json',
+      src: "test/coverage/reports/**/*.json",
+      options: {
+        type: "lcov",
+        dir: "test/coverage/reports",
+        print: "detail"
+      }
+    },
+
+    clean: ["doc/*"],
+
+    jsdoc: {
+      dist: {
+        src: ["patterns/**/*.js"],
         options: {
-        type: 'lcov',
-        dir: 'test/coverage/reports',
-        print: 'detail'
+          destination: "doc"
+        }
       }
     }
   });
 
-  grunt.loadNpmTasks('grunt-eslint');
-  grunt.loadNpmTasks('grunt-qunit-node');
-  grunt.loadNpmTasks('grunt-istanbul');
-  grunt.loadNpmTasks('grunt-env');
+  grunt.loadNpmTasks("grunt-eslint");
+  grunt.loadNpmTasks("grunt-qunit-node");
+  grunt.loadNpmTasks("grunt-istanbul");
+  grunt.loadNpmTasks("grunt-env");
+  grunt.loadNpmTasks("grunt-jsdoc");
+  grunt.loadNpmTasks("grunt-contrib-clean");
 
-  grunt.registerTask('default', ['eslint', 'env:coverage', 'instrument', 'qunit-node', 'storeCoverage', 'makeReport']);
+  grunt.registerTask("default", ["eslint", "env:coverage", "instrument",
+    "qunit-node", "storeCoverage", "makeReport", "clean", "jsdoc"]);
 };
