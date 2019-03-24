@@ -21,7 +21,6 @@
     "comma-dangle": ["error", "never"],
     "no-cond-assign": ["error", "always"],
     "padded-blocks": ["error", "never"],
-    "one-var": ["error", "consecutive"],
     "max-statements": ["error", {"max": 20}],
     "max-len": ["error", 80],
     "no-magic-numbers": ["error", { "ignore": [-1,0,1], "ignoreArrayIndexes": true, 
