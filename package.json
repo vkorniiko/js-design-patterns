@@ -7,20 +7,36 @@
   },
   "author": "Volodymyr Korniyko",
   "license": "MIT",
-  "dependencies": {},
-  "repository": {
-    "type": "git",
-    "url": "https://gitlab.com/vkorniyko/js-design-patterns.git"
-  },
   "devDependencies": {
     "grunt": "^1.0.4",
     "grunt-contrib-clean": "^2.0.0",
-    "grunt-contrib-jshint": "^2.1.0",
     "grunt-env": "^0.4.4",
     "grunt-eslint": "^21.0.0",
     "grunt-istanbul": "^0.8.0",
     "grunt-jsdoc": "^2.3.0",
     "grunt-qunit-node": "^0.1.0",
     "qunitjs": "^2.4.1"
-  }
+  },
+  "main": "gruntfile.js",
+  "directories": {
+    "doc": "doc",
+    "test": "test"
+  },
+  "keywords": [
+    "designpatterns",
+    "patterns",
+    "es6",
+    "experimental",
+    "javascript",
+    "architecture"
+  ],
+  "dependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@gitlab.com/vkorniyko/js-design-patterns.git"
+  },
+  "bugs": {
+    "url": "https://gitlab.com/vkorniyko/js-design-patterns/issues"
+  },
+  "homepage": "https://gitlab.com/vkorniyko/js-design-patterns#readme"
 }
