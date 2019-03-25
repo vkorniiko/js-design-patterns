@@ -1,6 +1,6 @@
 "use strict";
 
-/* eslint-disable no-unused-vars*/
+
 class BaseDBImplementor {
   constructor() {
     if (new.target === BaseDBImplementor)
@@ -19,6 +19,6 @@ class BaseDBImplementor {
     throw new Error("Not implemented.");
   }
 }
-/* eslint-enable no-unused-vars */
+
 
 module.exports = BaseDBImplementor;

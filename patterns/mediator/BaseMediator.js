@@ -6,7 +6,7 @@ class BaseMediator {
       throw new Error("Can't instantiate abstract type.");
   }
 
-  notify(event, target) { /* eslint-disable-line no-unused-vars*/
+  notify(event, target) { 
     throw new Error("Not implemented.");
   }
 }

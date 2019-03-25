@@ -6,7 +6,7 @@ class BaseBuilder {
       throw new Error("Can't instantiate abstract type.");
   }
 
-  buildNode(data) { /* eslint-disable-line no-unused-vars*/
+  buildNode(data) { 
     throw new Error("Not implemented.");
   }
 }

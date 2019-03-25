@@ -8,7 +8,7 @@ class BaseVehicleSubject {
     this.distance = 0;
   }
 
-  move(distance) { /* eslint-disable-line no-unused-vars*/
+  move(distance) { 
     throw new Error("Not implemented.");
   }
 }

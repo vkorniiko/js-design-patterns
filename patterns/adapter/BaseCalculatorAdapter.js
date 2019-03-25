@@ -11,7 +11,7 @@ class BaseCalculatorAdapter {
     this.areaCalculatorAdaptee = areaCalculatorAdaptee;
   }
 
-  calculate(width, height) { /* eslint-disable-line no-unused-vars*/
+  calculate(width, height) {
     throw new Error("Not implemented.");
   }
 }

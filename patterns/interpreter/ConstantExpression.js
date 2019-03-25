@@ -10,7 +10,7 @@ class ConstantExpression extends BaseExpression {
     this.value = value;
   }
 
-  evaluate(context) { /* eslint-disable-line no-unused-vars*/
+  evaluate(context) { 
     return this.value;
   }
 }

@@ -6,7 +6,7 @@ class BaseSearchStrategy {
       throw new Error("Can't instantiate abstract type.");
   }
 
-  search(array, number) { /* eslint-disable-line no-unused-vars*/
+  search(array, number) { 
     throw new Error("Not implemented.");
   }
 }

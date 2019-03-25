@@ -2,7 +2,7 @@
 
 const BaseDBImplementor = require("./BaseDBImplementor");
 
-/* eslint-disable no-unused-vars*/
+
 class BaseORMDescriptor {
   constructor(implementor) {
     if (new.target === BaseORMDescriptor)
@@ -26,6 +26,6 @@ class BaseORMDescriptor {
     throw new Error("Not implemented.");
   }
 }
-/* eslint-enable no-unused-vars */
+
 
 module.exports = BaseORMDescriptor;

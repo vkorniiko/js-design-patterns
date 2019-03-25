@@ -17,7 +17,7 @@
     "grunt-qunit-node": "^0.1.0",
     "qunitjs": "^2.4.1"
   },
-  "main": "gruntfile.js",
+  "main": "",
   "directories": {
     "doc": "doc",
     "test": "test"

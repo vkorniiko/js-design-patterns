@@ -15,7 +15,7 @@ class BaseExpressionComponent {
   remove() {
     throw new Error("Not implemented.");
   }
-  getChild(idx) { /* eslint-disable-line no-unused-vars*/
+  getChild(idx) { 
     throw new Error("Not implemented.");
   }
 }

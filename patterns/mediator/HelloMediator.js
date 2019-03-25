@@ -13,7 +13,7 @@ class HelloMediator extends BaseMediator {
     this.textField = new TextFieldColleague(this);
   }
 
-  notify(event, target) {/* eslint-disable-line no-unused-vars*/
+  notify(event, target) {
     switch (event) {
       case "helloButtonClicked":
         this.setText("Hello!");

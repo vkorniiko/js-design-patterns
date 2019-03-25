@@ -5,7 +5,7 @@ const BaseballBall = require("./BaseballBall");
 const BaseBall = require("./BaseBall");
 
 class ThrowBallVisitor extends BaseBallVisitor {
-  visitFootballBall(baseBall) { } /* eslint-disable-line no-unused-vars*/
+  visitFootballBall(baseBall) { } 
 
   visitBaseballBall(baseBall) {
     if (!(baseBall instanceof BaseBall))

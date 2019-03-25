@@ -14,7 +14,7 @@ class BaseBall {
     this.distance = 0;
   }
 
-  accept(baseBallVisitor) { /* eslint-disable-line no-unused-vars*/
+  accept(baseBallVisitor) { 
     throw new Error("Not implemented.");
   }
 }

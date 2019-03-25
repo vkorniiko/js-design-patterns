@@ -6,7 +6,7 @@ class BaseExpression {
       throw new Error("Can't instantiate abstract type.");
   }
 
-  evaluate(context) { /* eslint-disable-line no-unused-vars*/
+  evaluate(context) { 
     throw new Error("Not implemented.");
   }
 }

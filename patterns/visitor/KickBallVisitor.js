@@ -4,7 +4,7 @@ const BaseBallVisitor = require("./BaseBallVisitor");
 const FootballBall = require("./FootballBall");
 const BaseBall = require("./BaseBall");
 
-/* eslint-enable no-unused-vars*/
+
 class KickBallVisitor extends BaseBallVisitor {
   visitFootballBall(baseBall) {
     if (!(baseBall instanceof BaseBall))
@@ -15,7 +15,7 @@ class KickBallVisitor extends BaseBallVisitor {
     baseBall.distance = 30;
   }
 
-  visitBaseballBall(baseBall) { } /* eslint-disable-line no-unused-vars*/
+  visitBaseballBall(baseBall) { } 
 }
 
 module.exports = KickBallVisitor;

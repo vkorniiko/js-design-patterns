@@ -1,5 +1,5 @@
 "use strict";
-/* eslint-disable no-unused-vars*/
+
 const BaseDBImplementor = require("./BaseDBImplementor");
 //concrete query implementation for db1
 class DB1Implementor extends BaseDBImplementor {
@@ -8,6 +8,6 @@ class DB1Implementor extends BaseDBImplementor {
   delete(tableName, clones) { return new Promise(() => { }, () => { }); }
   insert(tableName, clones) { return new Promise(() => { }, () => { }); }
 }
-/* eslint-enable no-unused-vars */
+
 
 module.exports = DB1Implementor;
