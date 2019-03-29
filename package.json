@@ -8,6 +8,7 @@
   "author": "Volodymyr Korniyko",
   "license": "MIT",
   "devDependencies": {
+    "docdash": "^1.0.3",
     "grunt": "^1.0.4",
     "grunt-contrib-clean": "^2.0.0",
     "grunt-env": "^0.4.4",

@@ -76,11 +76,12 @@ module.exports = function(grunt) {
 
     clean: ["doc/*"],
 
-    jsdoc: {
-      dist: {
+    jsdoc : {
+      dist : {
         src: ["patterns/**/*.js"],
         options: {
-          destination: "doc"
+          destination: "doc",
+          template : "node_modules/docdash"
         }
       }
     }
@@ -90,8 +91,8 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks("grunt-qunit-node");
   grunt.loadNpmTasks("grunt-istanbul");
   grunt.loadNpmTasks("grunt-env");
-  grunt.loadNpmTasks("grunt-jsdoc");
   grunt.loadNpmTasks("grunt-contrib-clean");
+  grunt.loadNpmTasks("grunt-jsdoc");
 
   grunt.registerTask("default", ["eslint", "env:coverage", "instrument",
     "qunit-node", "storeCoverage", "makeReport", "clean", "jsdoc"]);
