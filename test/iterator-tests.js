@@ -8,10 +8,8 @@ const ListBuilder = requireHelper("../patterns/builder/ListBuilder"),
   BaseItemsStorage = requireHelper("../patterns/iterator/BaseItemsStorage"),
   BaseIterator = requireHelper("../patterns/iterator/BaseIterator"),
   List = requireHelper("../patterns/iterator/List"),
-  ES6List = requireHelper("../patterns/iterator/ES6List"),
   ListIterator = requireHelper("../patterns/iterator/ListIterator"),
-  ES6ListIterator = requireHelper("../patterns/iterator/ES6ListIterator"),
-  Client = requireHelper("../patterns/iterator/Client");
+  IteratorClient = requireHelper("../patterns/iterator/IteratorClient");
 
 QUnit.test("Check abstract types", (assert) => {
   testHelper.checkAbstract(BaseItemsStorage, assert);
@@ -25,17 +23,14 @@ QUnit.test("Check abstract types", (assert) => {
 
 QUnit.test("Check invalid arguments", (assert) => {
   testHelper.checkConstructorInvalidArguments(
-    Client, ["baseItemsStorage"],[], assert);
+    IteratorClient, ["baseItemsStorage"],[], assert);
+
+  testHelper.checkConstructorInvalidArguments(
+    ListIterator, ["list"],[], assert);
 });
 class IteratorListBuilder extends ListBuilder {
   createList(){
     return new List();
-  }
-}
-
-class ES6IteratorListBuilder extends ListBuilder {
-  createList(){
-    return new ES6List();
   }
 }
 
@@ -151,6 +146,13 @@ QUnit.test("ListIterator.prototype.getCurrent()", (assert) => {
   assert.ok(iterator.current instanceof ListNode);
   assert.strictEqual(iterator.current.data, 3);
   assert.strictEqual(result, 3);
+
+  iterator.moveNext();
+  result = iterator.getCurrent();
+
+  assert.ok(iterator.list instanceof List);
+  assert.strictEqual(iterator.current, null);
+  assert.strictEqual(result, null);
 });
 
 QUnit.test("ListIterator.prototype.reset()", (assert) => {
@@ -188,51 +190,28 @@ QUnit.test("ListIterator.prototype.moveNext() iterate", (assert) => {
   assert.strictEqual(idx, 3);
 });
 
-QUnit.test("ES6List.prototype.createIterator()", (assert) => {
-  const list = new ES6List();
-
-  const result = list.createIterator();
-
-  assert.ok(result instanceof ES6ListIterator);
-});
-
-QUnit.test("ES6ListIterator.prototype.moveNext() for...of", (assert) => {
-  const array = [ 1, 2, 3 ];
-  const listBuilder = new ES6IteratorListBuilder();
-  const arrayDirector = new ArrayDirector(listBuilder, array);
-  arrayDirector.construct();
-  const list = listBuilder.getResult();
-  const iterator = new ES6ListIterator(list);
-  let idx = 0;
-
-  for(let item of iterator){
-    assert.strictEqual(item, array[idx]);
-    idx++;
-  }
-});
-
-QUnit.test("Client(baseItemsStorage)", (assert) => {
+QUnit.test("IteratorClient(baseItemsStorage)", (assert) => {
   const baseItemsStorage = new List();
-  const result = new Client(baseItemsStorage);
+  const result = new IteratorClient(baseItemsStorage);
 
   assert.strictEqual(result.itemsStorage, baseItemsStorage);
 });
 
-QUnit.test("Client.prototype.iterate(callback)", (assert) => {
+QUnit.test("IteratorClient.prototype.iterate(callback)", (assert) => {
   const array = [ 1, 2, 3 ];
   const listBuilder = new IteratorListBuilder();
   const arrayDirector = new ArrayDirector(listBuilder, array);
   arrayDirector.construct();
   const list = listBuilder.getResult();
-  const client = new Client(list);
+  const iteratorClient = new IteratorClient(list);
   const items = []; 
 
   function callback(item){
     items.push(item);
   }
 
-  client.iterate(callback);
+  iteratorClient.iterate(callback);
 
-  assert.strictEqual(client.itemsStorage, list);
+  assert.strictEqual(iteratorClient.itemsStorage, list);
   assert.deepEqual(array, items);
 });
