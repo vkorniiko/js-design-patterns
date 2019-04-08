@@ -9,7 +9,7 @@ The set of samples of design patterns in JavaScript (ES6).
 Clone the repository:
 
 ```bash
-$ git clone https://gitlab.com/vkorniyko/js-design-patterns.git
+$ git clone https://gitlab.com/vkorniiko/js-design-patterns.git
 $ cd js-design-patterns
 ```
 

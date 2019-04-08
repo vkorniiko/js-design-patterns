@@ -5,7 +5,7 @@
   "scripts": {
     "build": "node ./node_modules/grunt/bin/grunt"
   },
-  "author": "Volodymyr Korniyko",
+  "author": "Volodymyr Korniiko",
   "license": "MIT",
   "devDependencies": {
     "docdash": "^1.0.3",
@@ -34,10 +34,10 @@
   "dependencies": {},
   "repository": {
     "type": "git",
-    "url": "git+ssh://git@gitlab.com/vkorniyko/js-design-patterns.git"
+    "url": "git+ssh://git@gitlab.com/vkorniiko/js-design-patterns.git"
   },
   "bugs": {
-    "url": "https://gitlab.com/vkorniyko/js-design-patterns/issues"
+    "url": "https://gitlab.com/vkorniiko/js-design-patterns/issues"
   },
-  "homepage": "https://gitlab.com/vkorniyko/js-design-patterns#readme"
+  "homepage": "https://gitlab.com/vkorniiko/js-design-patterns#readme"
 }
