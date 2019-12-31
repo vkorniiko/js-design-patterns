@@ -182,16 +182,11 @@ QUnit.test("ReturnBallVisitor.prototype.visitFootballBall(baseBall)", (assert) =
 QUnit.test("BallsCollectionData()", (assert) => {
   const result = new BallsCollectionData();
 
-  result.footballBalls.forEach((ball) => {
-    assert.ok(ball instanceof FootballBall);
+  result.balls.forEach((ball) => {
+    assert.ok(ball instanceof BaseBall);
   });
 
-  result.baseballBalls.forEach((ball) => {
-    assert.ok(ball instanceof BaseballBall);
-  });
-
-  assert.strictEqual(result.footballBalls.length, 10);
-  assert.strictEqual(result.baseballBalls.length, 10);
+  assert.strictEqual(result.balls.length, 20);
 });
 
 QUnit.test("BallsManagerClient()", (assert) => {

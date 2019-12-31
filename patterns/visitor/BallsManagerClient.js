@@ -8,8 +8,7 @@ class BallsManagerClient {
   }
 
   performDynamicActionOnAllBalls(visitor) {
-    this.data.footballBalls.forEach(ball => visitor.visitFootballBall(ball));
-    this.data.baseballBalls.forEach(ball => visitor.visitBaseballBall(ball));
+    this.data.balls.forEach(ball => ball.accept(visitor));
   }
 }
 
